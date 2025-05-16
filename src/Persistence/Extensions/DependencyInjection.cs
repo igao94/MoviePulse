@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Data;
+using Persistence.Repositories;
 
 namespace Persistence.Extensions;
 
@@ -23,6 +25,10 @@ public static class DependencyInjection
                 opt.UseSqlServer(config.GetConnectionString("SqlServer"));
             }
         });
+
+        services.AddScoped<IMovieRepository, MovieRepository>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
