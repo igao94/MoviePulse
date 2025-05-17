@@ -1,4 +1,5 @@
 ﻿using Application.Movies.Commands.CreateMovie;
+using Application.Movies.Commands.UpdateMovie;
 using Application.Movies.DTOs;
 using Application.Movies.Queries.GetAllMovies;
 using Application.Movies.Queries.GetMovieById;
@@ -26,5 +27,13 @@ public class MoviesController : BaseApiController
         var result = await Mediator.Send(new CreateMovieCommand(createMovieDto));
 
         return HandleCreatedResult(result, nameof(GetMovieById), new { id = result.Value?.Id }, result.Value);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateMovie(string id, UpdateMovieDto updateMovieDto)
+    {
+        updateMovieDto.Id = id;
+
+        return HandleResult(await Mediator.Send(new UpdateMovieCommand(updateMovieDto)));
     }
 }
