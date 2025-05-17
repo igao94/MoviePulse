@@ -12,6 +12,11 @@ public class CreateMovieHandler(IUnitOfWork unitOfWork,
 {
     public async Task<Result<MovieDto>> Handle(CreateMovieCommand request, CancellationToken cancellationToken)
     {
+        if (await unitOfWork.MovieRepository.MovieExistAsync(request.CreateMovieDto.Title))
+        {
+            return Result<MovieDto>.Failure("Movie already exist.", 400);
+        }
+
         var movie = mapper.Map<Movie>(request.CreateMovieDto);
 
         unitOfWork.MovieRepository.AddMovie(movie);
