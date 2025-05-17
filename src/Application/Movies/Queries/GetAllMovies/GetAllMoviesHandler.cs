@@ -4,7 +4,7 @@ using AutoMapper;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Movies.GetAllMovies;
+namespace Application.Movies.Queries.GetAllMovies;
 
 public class GetAllMoviesHandler(IUnitOfWork unitOfWork,
     IMapper mapper) : IRequestHandler<GetAllMoviesQuery, Result<IEnumerable<MovieDto>>>

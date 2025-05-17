@@ -9,5 +9,7 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<Movie, MovieDto>();
+
+        CreateMap<CreateMovieDto, Movie>();
     }
 }

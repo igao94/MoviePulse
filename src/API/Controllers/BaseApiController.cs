@@ -27,4 +27,22 @@ public class BaseApiController : ControllerBase
 
         return BadRequest(result.Error);
     }
+
+    protected ActionResult HandleCreatedResult<T>(Result<T> result,
+        string? actionName,
+        object? routeValues,
+        object? value)
+    {
+        if (!result.IsSuccess && result.StatusCode == 404)
+        {
+            return NotFound();
+        }
+
+        if (result.IsSuccess && result.Value is not null)
+        {
+            return CreatedAtAction(actionName, routeValues, value);
+        }
+
+        return BadRequest(result.Error);
+    }
 }

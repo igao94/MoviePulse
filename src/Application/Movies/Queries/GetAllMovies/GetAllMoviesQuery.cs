@@ -2,7 +2,7 @@
 using Application.Movies.DTOs;
 using MediatR;
 
-namespace Application.Movies.GetAllMovies;
+namespace Application.Movies.Queries.GetAllMovies;
 
 public class GetAllMoviesQuery : IRequest<Result<IEnumerable<MovieDto>>>
 {

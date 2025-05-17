@@ -1,5 +1,5 @@
 ﻿using Application.Core;
-using Application.Movies.GetAllMovies;
+using Application.Movies.Queries.GetAllMovies;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Extensions;
