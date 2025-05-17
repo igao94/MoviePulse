@@ -10,6 +10,8 @@ public class MappingProfiles : Profile
     {
         CreateMap<Movie, MovieDto>();
 
-        CreateMap<CreateMovieDto, Movie>();
+        CreateMap<CreateMovieDto, Movie>()
+            .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src =>
+                DateOnly.ParseExact(src.ReleaseDate, "yyyy-MM-dd")));
     }
 }
