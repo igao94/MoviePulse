@@ -1,4 +1,5 @@
 ﻿using Application.Movies.Commands.CreateMovie;
+using Application.Movies.Commands.DeleteMovie;
 using Application.Movies.Commands.UpdateMovie;
 using Application.Movies.DTOs;
 using Application.Movies.Queries.GetAllMovies;
@@ -35,5 +36,11 @@ public class MoviesController : BaseApiController
         updateMovieDto.Id = id;
 
         return HandleResult(await Mediator.Send(new UpdateMovieCommand(updateMovieDto)));
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteMovie(string id)
+    {
+        return HandleResult(await Mediator.Send(new DeleteMovieComand(id)));
     }
 }
