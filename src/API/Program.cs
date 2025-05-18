@@ -1,6 +1,7 @@
 using API.Extensions;
 using API.Middleware;
 using Application.Extensions;
+using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Persistence.Extensions;
@@ -14,12 +15,16 @@ builder.Services.AddApplicationServices();
 
 builder.Services.AddPersistenceServices(builder.Configuration);
 
+builder.Services.AddInfrastructureServices(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
