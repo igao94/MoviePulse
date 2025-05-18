@@ -31,7 +31,7 @@ app.Run();
 
 static async Task<IServiceScope> SeedDatabaseAsync(WebApplication app)
 {
-    var scope = app.Services.CreateScope();
+    using var scope = app.Services.CreateScope();
 
     var services = scope.ServiceProvider;
 
@@ -47,13 +47,15 @@ static async Task<IServiceScope> SeedDatabaseAsync(WebApplication app)
             await context.Database.MigrateAsync();
         }
 
-        await Seed.SeedDatabaseAsync(context);
+        var seeder = services.GetRequiredService<ISeedDatabase>();
+
+        await seeder.SeedDatabaseAsync();
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
 
-        logger.LogError(ex, "An error occured.");
+        logger.LogError(ex, "An error occurred.");
     }
 
     return scope;

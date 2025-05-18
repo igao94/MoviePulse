@@ -2,16 +2,16 @@
 
 namespace Persistence.Data;
 
-public class Seed
+public class SeedDatabase(AppDbContext context) : ISeedDatabase
 {
-    public static async Task SeedDatabaseAsync(AppDbContext context)
+    public async Task SeedDatabaseAsync()
     {
-        AddMovies(context);
+        AddMovies();
 
         await context.SaveChangesAsync();
     }
 
-    private static void AddMovies(AppDbContext context)
+    private void AddMovies()
     {
         if (!context.Movies.Any())
         {

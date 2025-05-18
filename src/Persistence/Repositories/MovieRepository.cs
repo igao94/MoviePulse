@@ -19,7 +19,10 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
         return await context.Movies.FindAsync(id);
     }
 
-    public async Task<bool> MovieExistAsync(string title) => await context.Movies.AnyAsync(u => u.Title == title);
+    public async Task<bool> MovieExistAsync(string title)
+    {
+        return await context.Movies.AnyAsync(u => u.Title.ToLower() == title.ToLower());
+    }
 
     public void RemoveMovie(Movie movie) => context.Movies.Remove(movie);
 }
