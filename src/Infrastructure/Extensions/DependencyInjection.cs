@@ -1,9 +1,11 @@
 ﻿using Application.Interfaces;
+using Infrastructure.Security;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Interfaces;
 using System.Text;
 
 namespace Infrastructure.Extensions;
@@ -30,6 +32,8 @@ public static class DependencyInjection
             });
 
         services.AddScoped<ITokenService, TokenService>();
+
+        services.AddSingleton<IHmacPasswordHasher, HmacPasswordHasher>();
 
         return services;
     }
