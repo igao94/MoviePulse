@@ -1,14 +1,49 @@
 ﻿using Domain.Entities;
+using Shared.Interfaces;
 
 namespace Persistence.Data;
 
-public class SeedDatabase(AppDbContext context) : ISeedDatabase
+public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPasswordHasher) : ISeedDatabase
 {
     public async Task SeedDatabaseAsync()
     {
         AddMovies();
 
+        AddUsers();
+
         await context.SaveChangesAsync();
+    }
+
+    private void AddUsers()
+    {
+        if (!context.Users.Any())
+        {
+            List<User> users =
+            [
+                CreateUser("john", "john@test.com", "John", "Doe"),
+                CreateUser("jane", "jane@test.com", "Jane", "Smith"),
+                CreateUser("michael", "michael@test.com", "Michael", "Johnson"),
+                CreateUser("emily", "emily@test.com", "Emily", "Wilson"),
+                CreateUser("alexander", "alexander@test.com", "Alexander", "Brown")
+            ];
+
+            context.Users.AddRange(users);
+        }
+    }
+
+    private User CreateUser(string username, string email, string firstName, string lastName)
+    {
+        var (hash, salt) = hmacPasswordHasher.HashPassword("Pa$$w0rd");
+
+        return new User
+        {
+            Username = username,
+            Email = email,
+            FirstName = firstName,
+            LastName = lastName,
+            PasswordHash = hash,
+            PasswordSalt = salt
+        };
     }
 
     private void AddMovies()
