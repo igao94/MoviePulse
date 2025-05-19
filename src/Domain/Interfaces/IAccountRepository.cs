@@ -5,4 +5,5 @@ namespace Domain.Interfaces;
 public interface IAccountRepository
 {
     void RegisterUser(User user);
+    Task<User?> GetUserByEmailAsync(string email);
 }

@@ -14,4 +14,13 @@ public class HmacPasswordHasher : IHmacPasswordHasher
 
         return (hash, hmac.Key);
     }
+
+    public bool VerifyPassword(byte[] hash, byte[] salt, string password)
+    {
+        using var hmac = new HMACSHA512(salt);
+
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+        return computedHash.SequenceEqual(hash);
+    }
 }
