@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Config;
 
 namespace Persistence.Data;
 
@@ -13,6 +14,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     {
         base.OnModelCreating(builder);
 
-        builder.ApplyConfigurationsFromAssembly(typeof(Movie).Assembly);
+        builder.ApplyConfigurationsFromAssembly(typeof(MovieEntityConfiguration).Assembly);
     }
 }

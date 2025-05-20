@@ -8,6 +8,10 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.HasIndex(u => u.Email).IsUnique();
+
+        builder.HasIndex(u => u.Username).IsUnique();
+
         builder.Property(u => u.Username).IsRequired();
 
         builder.Property(u => u.Email).IsRequired();
