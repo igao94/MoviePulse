@@ -7,6 +7,8 @@ namespace Persistence.Repositories;
 
 public class AccountRepository(AppDbContext context) : IAccountRepository
 {
+    public async Task<User?> GetUserByIdAsync(string id) => await context.Users.FindAsync(id);
+
     public async Task<User?> GetUserByEmailAsync(string email)
     {
         return await context.Users.FirstOrDefaultAsync(u => u.Email == email);

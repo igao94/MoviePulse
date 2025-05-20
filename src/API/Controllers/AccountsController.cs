@@ -1,6 +1,7 @@
 ﻿using Application.Accounts.Commands.Login;
 using Application.Accounts.Commands.Register;
 using Application.Accounts.DTOs;
+using Application.Accounts.Queries.GetCurrentUserInfo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,5 +20,11 @@ public class AccountsController : BaseApiController
     public async Task<ActionResult<AccountDto>> Login(LoginDto loginDto)
     {
         return HandleResult(await Mediator.Send(new LoginCommand(loginDto)));
+    }
+
+    [HttpGet("get-current-user-info")]
+    public async Task<ActionResult<CurrentUserDto>> GetCurrentUserInfo()
+    {
+        return HandleResult(await Mediator.Send(new GetCurrentUserInfoQuery()));
     }
 }
