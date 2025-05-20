@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Application.Accounts.Validators;
 
-public class RegisterValidator : BaseUserAuthValidator<RegisterCommand, UserAuthDto>
+public class RegisterValidator : BaseUserAuthValidator<RegisterCommand, BaseAuthDto>
 {
     public RegisterValidator() : base(x => x.RegisterDto)
     {

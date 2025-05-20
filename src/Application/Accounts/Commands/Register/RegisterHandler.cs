@@ -14,6 +14,16 @@ public class RegisterHandler(IUnitOfWork unitOfWork,
 {
     public async Task<Result<AccountDto>> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
+        if (await unitOfWork.AccountRepository.IsUsernameTakenAsync(request.RegisterDto.Username))
+        {
+            return Result<AccountDto>.Failure("Username is alredy taken.", 400);
+        }
+
+        if (await unitOfWork.AccountRepository.IsEmailTakenAsync(request.RegisterDto.Email))
+        {
+            return Result<AccountDto>.Failure("Email is alredy taken.", 400);
+        }
+
         var (hash, salt) = hmacPasswordHasher.HashPassword(request.RegisterDto.Password);
 
         var user = new User

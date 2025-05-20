@@ -1,6 +1,6 @@
 ﻿namespace Application.Accounts.DTOs;
 
-public class LoginDto : UserAuthDto
+public class LoginDto : BaseAuthDto
 {
 
 }

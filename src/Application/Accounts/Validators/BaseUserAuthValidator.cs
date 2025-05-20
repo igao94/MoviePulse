@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Application.Accounts.Validators;
 
-public class BaseUserAuthValidator<T, TDto> : AbstractValidator<T> where TDto : UserAuthDto
+public class BaseUserAuthValidator<T, TDto> : AbstractValidator<T> where TDto : BaseAuthDto
 {
     public BaseUserAuthValidator(Func<T, TDto> selector)
     {

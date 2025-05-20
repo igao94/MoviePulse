@@ -10,8 +10,7 @@ public class BaseApiController : ControllerBase
 {
     private IMediator? _mediator;
 
-    protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>()
-        ?? throw new InvalidOperationException("IMediator is unavailable.");
+    protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<IMediator>();
 
     protected ActionResult HandleResult<T>(Result<T> result)
     {
