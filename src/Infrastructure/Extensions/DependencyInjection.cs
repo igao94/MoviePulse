@@ -35,6 +35,10 @@ public static class DependencyInjection
 
         services.AddSingleton<IHmacPasswordHasher, HmacPasswordHasher>();
 
+        services.AddScoped<IUserContext, UserContext>();
+
+        services.AddHttpContextAccessor();
+
         return services;
     }
 }
