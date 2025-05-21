@@ -12,6 +12,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
     public DbSet<Role> Roles { get; set; }
 
+    public DbSet<UserRole> UserRoles { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

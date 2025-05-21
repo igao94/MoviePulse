@@ -10,4 +10,5 @@ public class User
     public byte[] PasswordHash { get; set; } = default!;
     public byte[] PasswordSalt { get; set; } = default!;
     public string? PictureUrl { get; set; }
+    public ICollection<UserRole> Roles { get; set; } = [];
 }
