@@ -30,6 +30,8 @@ public static class DependencyInjection
 
         services.AddScoped<IAccountRepository, AccountRepository>();
 
+        services.AddScoped<IRoleRepository, RoleRepository>();
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<ISeedDatabase, SeedDatabase>();

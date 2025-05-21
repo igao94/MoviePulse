@@ -48,7 +48,7 @@ public class RegisterHandler(IUnitOfWork unitOfWork,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Token = tokenService.GetToken(user)
+                Token = await tokenService.GetTokenAsync(user)
             })
             : Result<AccountDto>.Failure("Failed to register user.", 400);
     }

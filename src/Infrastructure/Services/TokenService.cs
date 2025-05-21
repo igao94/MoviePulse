@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,13 +9,17 @@ using System.Text;
 
 namespace Infrastructure.Services;
 
-public class TokenService(IConfiguration config) : ITokenService
+public class TokenService(IConfiguration config, IUnitOfWork unitOfWork) : ITokenService
 {
-    public string GetToken(User user)
+    public async Task<string> GetTokenAsync(User user)
     {
         var creds = GetCredentials();
 
         var claims = GetClaims(user);
+
+        var roleNames = await unitOfWork.RoleRepository.GetUserRoleNamesAsync(user.Id);
+
+        claims.AddRange(roleNames.Select(r => new Claim(ClaimTypes.Role, r)));
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
