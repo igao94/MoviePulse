@@ -1,6 +1,7 @@
 ﻿using API.Middleware;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Shared.Constants;
 
 namespace API.Extensions;
 
@@ -16,6 +17,9 @@ public static class DependencyInjection
         });
 
         services.AddTransient<ExceptionMiddleware>();
+
+        services.AddAuthorizationBuilder()
+            .AddPolicy(PolicyTypes.RequireAdminRole, opt => opt.RequireRole(UserRoles.Admin));
 
         return services;
     }

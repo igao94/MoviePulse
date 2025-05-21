@@ -11,7 +11,7 @@ namespace API.Controllers;
 public class AccountsController : BaseApiController
 {
     [HttpPost("register")]
-    public async Task<ActionResult<AccountDto>> RegisterUser(RegisterDto registerDto)
+    public async Task<ActionResult<AccountDto>> Register(RegisterDto registerDto)
     {
         return HandleResult(await Mediator.Send(new RegisterCommand(registerDto)));
     }
