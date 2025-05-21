@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Constants;
+using Domain.Entities;
 using Shared.Interfaces;
 
 namespace Persistence.Data;
@@ -9,9 +10,36 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
     {
         AddMovies();
 
+        AddRoles();
+
         AddUsers();
 
         await context.SaveChangesAsync();
+    }
+
+    private void AddRoles()
+    {
+        if (!context.Roles.Any())
+        {
+            List<Role> roles =
+            [
+                new()
+                {
+                    Id = UserRoles.MemberRoleId,
+                    Name = UserRoles.Member,
+                    NormalizedName = UserRoles.Member.ToUpper()
+                },
+
+                new()
+                {
+                    Id = UserRoles.AdminRoleId,
+                    Name = UserRoles.Admin,
+                    NormalizedName = UserRoles.Admin.ToUpper()
+                }
+            ];
+
+            context.Roles.AddRange(roles);
+        }
     }
 
     private void AddUsers()
