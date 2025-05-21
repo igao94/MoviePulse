@@ -1,4 +1,4 @@
-﻿namespace Domain.Constants;
+﻿namespace Shared.Constants;
 
 public static class UserRoles
 {
