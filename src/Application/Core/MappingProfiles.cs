@@ -1,4 +1,5 @@
 ﻿using Application.Movies.DTOs;
+using Application.Users.DTOs;
 using AutoMapper;
 using Domain.Entities;
 
@@ -17,5 +18,7 @@ public class MappingProfiles : Profile
         CreateMap<UpdateMovieDto, Movie>()
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src =>
                 DateOnly.ParseExact(src.ReleaseDate, "yyyy-MM-dd")));
+
+        CreateMap<User, UserDto>();
     }
 }
