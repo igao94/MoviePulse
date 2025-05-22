@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 
@@ -12,5 +13,10 @@ public class RoleRepository(AppDbContext context) : IRoleRepository
             .Where(ur => ur.UserId == userId)
             .Select(ur => ur.Role.Name)
             .ToListAsync();
+    }
+
+    public void AddUserToRole(string userId, string roleId)
+    {
+        context.UserRoles.Add(new UserRole { UserId = userId, RoleId = roleId });
     }
 }

@@ -24,5 +24,5 @@ public class AccountRepository(AppDbContext context) : IAccountRepository
         return await context.Users.AnyAsync(u => u.Username == username);
     }
 
-    public void RegisterUser(User user) => context.Users.Add(user);
+    public void AddUser(User user) => context.Users.Add(user);
 }

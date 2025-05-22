@@ -4,6 +4,7 @@ using Application.Interfaces;
 using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
+using Shared.Constants;
 using Shared.Interfaces;
 
 namespace Application.Accounts.Commands.Register;
@@ -36,7 +37,9 @@ public class RegisterHandler(IUnitOfWork unitOfWork,
             PasswordSalt = salt
         };
 
-        unitOfWork.AccountRepository.RegisterUser(user);
+        unitOfWork.AccountRepository.AddUser(user);
+
+        unitOfWork.RoleRepository.AddUserToRole(user.Id, UserRoles.MemberRoleId);
 
         var result = await unitOfWork.SaveChangesAsync();
 

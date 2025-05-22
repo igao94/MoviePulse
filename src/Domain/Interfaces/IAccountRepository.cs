@@ -5,7 +5,7 @@ namespace Domain.Interfaces;
 public interface IAccountRepository
 {
     Task<User?> GetUserByIdAsync(string id);
-    void RegisterUser(User user);
+    void AddUser(User user);
     Task<User?> GetUserByEmailAsync(string email);
     Task<bool> IsUsernameTakenAsync(string username);
     Task<bool> IsEmailTakenAsync(string email);
