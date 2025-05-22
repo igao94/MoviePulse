@@ -46,17 +46,17 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
     {
         if (!context.Users.Any())
         {
-            var admin = CreateUser("admin", "admin@test.com", "Admin", "Admin");
+            var admin = CreateUser("admin-id", "admin", "admin@test.com", "Admin", "Admin");
 
             context.Users.Add(admin);
 
             List<User> users =
             [
-                CreateUser("john", "john@test.com", "John", "Doe"),
-                CreateUser("jane", "jane@test.com", "Jane", "Smith"),
-                CreateUser("michael", "michael@test.com", "Michael", "Johnson"),
-                CreateUser("emily", "emily@test.com", "Emily", "Wilson"),
-                CreateUser("alexander", "alexander@test.com", "Alexander", "Brown")
+                CreateUser("john-id", "john", "john@test.com", "John", "Doe"),
+                CreateUser("jane-id", "jane", "jane@test.com", "Jane", "Smith"),
+                CreateUser("michael-id", "michael", "michael@test.com", "Michael", "Johnson"),
+                CreateUser("emily-id", "emily", "emily@test.com", "Emily", "Wilson"),
+                CreateUser("alexander-id", "alexander", "alexander@test.com", "Alexander", "Brown")
             ];
 
             context.Users.AddRange(users);
@@ -75,12 +75,13 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
         }
     }
 
-    private User CreateUser(string username, string email, string firstName, string lastName)
+    private User CreateUser(string id, string username, string email, string firstName, string lastName)
     {
         var (hash, salt) = hmacPasswordHasher.HashPassword("Pa$$w0rd");
 
         return new User
         {
+            Id = id,
             Username = username,
             Email = email,
             FirstName = firstName,
