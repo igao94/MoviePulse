@@ -15,12 +15,12 @@ public class RegisterHandler(IUnitOfWork unitOfWork,
 {
     public async Task<Result<AccountDto>> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        if (await unitOfWork.AccountRepository.IsUsernameTakenAsync(request.RegisterDto.Username))
+        if (await unitOfWork.UserRepository.IsUsernameTakenAsync(request.RegisterDto.Username))
         {
             return Result<AccountDto>.Failure("Username is alredy taken.", 400);
         }
 
-        if (await unitOfWork.AccountRepository.IsEmailTakenAsync(request.RegisterDto.Email))
+        if (await unitOfWork.UserRepository.IsEmailTakenAsync(request.RegisterDto.Email))
         {
             return Result<AccountDto>.Failure("Email is alredy taken.", 400);
         }
@@ -37,7 +37,7 @@ public class RegisterHandler(IUnitOfWork unitOfWork,
             PasswordSalt = salt
         };
 
-        unitOfWork.AccountRepository.AddUser(user);
+        unitOfWork.UserRepository.AddUser(user);
 
         unitOfWork.RoleRepository.AddUserToRole(user.Id, UserRoles.MemberRoleId);
 

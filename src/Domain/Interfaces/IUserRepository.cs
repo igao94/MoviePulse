@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces;
 
-public interface IAccountRepository
+public interface IUserRepository
 {
     Task<User?> GetUserByIdAsync(string id);
     void AddUser(User user);

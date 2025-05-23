@@ -5,12 +5,12 @@ namespace Persistence.Repositories;
 
 public class UnitOfWork(AppDbContext context,
     IMovieRepository movieRepository,
-    IAccountRepository accountRepository,
+    IUserRepository userRepository,
     IRoleRepository roleRepository) : IUnitOfWork
 {
     public IMovieRepository MovieRepository => movieRepository;
 
-    public IAccountRepository AccountRepository => accountRepository;
+    public IUserRepository UserRepository => userRepository;
 
     public IRoleRepository RoleRepository => roleRepository;
 

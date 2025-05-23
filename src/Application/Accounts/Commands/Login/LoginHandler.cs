@@ -13,7 +13,7 @@ public class LoginHandler(IUnitOfWork unitOfWork,
 {
     public async Task<Result<AccountDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var user = await unitOfWork.AccountRepository.GetUserByEmailAsync(request.LoginDto.Email);
+        var user = await unitOfWork.UserRepository.GetUserByEmailAsync(request.LoginDto.Email);
 
         if (user is null)
         {

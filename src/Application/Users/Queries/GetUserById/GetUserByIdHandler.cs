@@ -11,7 +11,7 @@ public class GetUserByIdHandler(IUnitOfWork unitOfWork,
 {
     public async Task<Result<UserDto>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await unitOfWork.AccountRepository.GetUserByIdAsync(request.Id);
+        var user = await unitOfWork.UserRepository.GetUserByIdAsync(request.Id);
 
         if (user is null)
         {

@@ -5,7 +5,7 @@ using Persistence.Data;
 
 namespace Persistence.Repositories;
 
-public class AccountRepository(AppDbContext context) : IAccountRepository
+public class UserRepository(AppDbContext context) : IUserRepository
 {
     public async Task<User?> GetUserByIdAsync(string id) => await context.Users.FindAsync(id);
 

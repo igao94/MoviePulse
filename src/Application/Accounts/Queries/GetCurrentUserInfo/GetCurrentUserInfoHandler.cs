@@ -12,11 +12,11 @@ public class GetCurrentUserInfoHandler(IUnitOfWork unitOfWork,
     public async Task<Result<CurrentUserDto>> Handle(GetCurrentUserInfoQuery request,
         CancellationToken cancellationToken)
     {
-        var user = await unitOfWork.AccountRepository.GetUserByIdAsync(userContext.GetUserId());
+        var user = await unitOfWork.UserRepository.GetUserByIdAsync(userContext.GetUserId());
 
         if (user is null)
         {
-            return Result<CurrentUserDto>.Failure("User not logged in.", 400);
+            return Result<CurrentUserDto>.Failure("Please log in.", 400);
         }
 
         return Result<CurrentUserDto>.Success(new CurrentUserDto
