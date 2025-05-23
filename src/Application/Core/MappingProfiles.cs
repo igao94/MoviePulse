@@ -20,5 +20,7 @@ public class MappingProfiles : Profile
                 DateOnly.ParseExact(src.ReleaseDate, "yyyy-MM-dd")));
 
         CreateMap<User, UserDto>();
+
+        CreateMap<UpdateUserDto, User>();
     }
 }
