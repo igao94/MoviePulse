@@ -25,4 +25,6 @@ public class UserRepository(AppDbContext context) : IUserRepository
     }
 
     public void AddUser(User user) => context.Users.Add(user);
+
+    public void RemoveUser(User user) => context.Users.Remove(user);
 }

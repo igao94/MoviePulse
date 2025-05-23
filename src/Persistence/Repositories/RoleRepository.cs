@@ -19,4 +19,13 @@ public class RoleRepository(AppDbContext context) : IRoleRepository
     {
         context.UserRoles.Add(new UserRole { UserId = userId, RoleId = roleId });
     }
+
+    public async Task RemoveUserRolesAsync(string userId)
+    {
+        var roles = await context.UserRoles
+            .Where(ur => ur.UserId == userId)
+            .ToListAsync();
+
+        context.UserRoles.RemoveRange(roles);
+    }
 }

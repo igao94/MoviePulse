@@ -1,4 +1,5 @@
-﻿using Application.Users.DTOs;
+﻿using Application.Users.Command.DeleteUser;
+using Application.Users.DTOs;
 using Application.Users.Queries.GetUserById;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,5 +11,11 @@ public class UsersController : BaseApiController
     public async Task<ActionResult<UserDto>> GetUserById(string id)
     {
         return HandleResult(await Mediator.Send(new GetUserByIdQuery(id)));
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteUser()
+    {
+        return HandleResult(await Mediator.Send(new DeleteUserCommand()));
     }
 }
