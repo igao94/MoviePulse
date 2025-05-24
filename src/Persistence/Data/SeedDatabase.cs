@@ -10,14 +10,45 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
     {
         AddMovies();
 
-        AddRoles();
+        AddUserRoles();
+
+        AddCelebrityRoleTypes();
 
         AddUsers();
 
         await context.SaveChangesAsync();
     }
 
-    private void AddRoles()
+    private void AddCelebrityRoleTypes()
+    {
+        if (!context.CelebrityRoleTypes.Any())
+        {
+            List<CelebrityRoleType> roleTypes =
+            [
+                new()
+                {
+                    Id = CelebrityRoleTypes.ActorId,
+                    Name = CelebrityRoleTypes.Actor
+                },
+
+                new()
+                {
+                    Id = CelebrityRoleTypes.ProducerId,
+                    Name = CelebrityRoleTypes.Producer
+                },
+
+                new()
+                {
+                    Id = CelebrityRoleTypes.DirectorId,
+                    Name = CelebrityRoleTypes.Director
+                }
+            ];
+
+            context.CelebrityRoleTypes.AddRange(roleTypes);
+        }
+    }
+
+    private void AddUserRoles()
     {
         if (!context.Roles.Any())
         {
