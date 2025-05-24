@@ -8,6 +8,6 @@ public class CelebrityRoleTypeConfiguration : IEntityTypeConfiguration<Celebrity
 {
     public void Configure(EntityTypeBuilder<CelebrityRoleType> builder)
     {
-        builder.Property(cr => cr.Name).IsRequired();
+        builder.Property(crt => crt.Name).IsRequired();
     }
 }

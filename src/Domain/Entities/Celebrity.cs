@@ -9,4 +9,5 @@ public class Celebrity
     public string? PictureUrl { get; set; }
     public DateOnly DateOfBirth { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public ICollection<CelebrityRole> Roles { get; set; } = [];
 }
