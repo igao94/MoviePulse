@@ -1,4 +1,5 @@
-﻿using Application.Celebrities.Commands.CreateCelebrity;
+﻿using Application.Celebrities.Commands.AddCelebrityToMovie;
+using Application.Celebrities.Commands.CreateCelebrity;
 using Application.Celebrities.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,5 +14,12 @@ public class CelebritiesController : BaseApiController
     public async Task<ActionResult<CelebrityDto>> CreateCelebrity(CreateCelebrityDto createCelebrityDto)
     {
         return HandleResult(await Mediator.Send(new CreateCelebrityCommand(createCelebrityDto)));
+    }
+
+    [Authorize(Policy = PolicyTypes.RequireAdminRole)]
+    [HttpPost("add-celebrity-to-movie")]
+    public async Task<ActionResult> AddCelebrityToMovie(AddCelebrityToMovieCommand command)
+    {
+        return HandleResult(await Mediator.Send(command));
     }
 }

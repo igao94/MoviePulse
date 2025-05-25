@@ -22,4 +22,16 @@ public class CelebrityRepository(AppDbContext context) : ICelebrityRepository
 
         return celebrityRoleTypes;
     }
+
+    public async Task<Celebrity?> GetCelebrityByIdAsync(string id) => await context.Celebrities.FindAsync(id);
+
+    public void AddMovieRoles(IEnumerable<MovieRole> movieRoles) => context.MovieRoles.AddRange(movieRoles);
+
+    public async Task<IEnumerable<MovieRole>> GetMovieRolesByMovieIdAndCelebrityIdAsync(string movieId,
+        string celebrityId)
+    {
+        return await context.MovieRoles
+            .Where(mr => mr.MovieId == movieId && mr.CelebrityId == celebrityId)
+            .ToListAsync();
+    }
 }
