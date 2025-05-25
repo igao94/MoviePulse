@@ -10,4 +10,5 @@ public class Movie
     public double Rating { get; set; }
     public string? PosterUrl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public ICollection<MovieRole> Celebrities { get; set; } = [];
 }

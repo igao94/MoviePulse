@@ -22,9 +22,4 @@ public class CelebrityRepository(AppDbContext context) : ICelebrityRepository
 
         return celebrityRoleTypes;
     }
-
-    public void AddCelebrityToRoles(IEnumerable<CelebrityRole> celebrityRoles)
-    {
-        context.CelebrityRoles.AddRange(celebrityRoles);
-    }
 }
