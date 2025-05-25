@@ -10,4 +10,6 @@ public class Celebrity
     public DateOnly DateOfBirth { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public ICollection<CelebrityRole> Roles { get; set; } = [];
+
+    public string GetFullName() => $"{FirstName} {LastName}";
 }

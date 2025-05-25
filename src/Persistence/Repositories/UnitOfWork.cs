@@ -6,13 +6,16 @@ namespace Persistence.Repositories;
 public class UnitOfWork(AppDbContext context,
     IMovieRepository movieRepository,
     IUserRepository userRepository,
-    IRoleRepository roleRepository) : IUnitOfWork
+    IRoleRepository roleRepository,
+    ICelebrityRepository celebrityRepository) : IUnitOfWork
 {
     public IMovieRepository MovieRepository => movieRepository;
 
     public IUserRepository UserRepository => userRepository;
 
     public IRoleRepository RoleRepository => roleRepository;
+
+    public ICelebrityRepository CelebrityRepository => celebrityRepository;
 
     public async Task<bool> SaveChangesAsync() => await context.SaveChangesAsync() > 0;
 }
