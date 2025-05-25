@@ -17,22 +17,6 @@ public class CreateCelebrityHandler(IUnitOfWork unitOfWork,
 
         unitOfWork.CelebrityRepository.AddCelebrity(celebrity);
 
-        var celebrityRoleTypes = await unitOfWork.CelebrityRepository
-            .GetCelebrityRoleTypesByIdsAsync(request.CreateCelebrityDto.RoleTypeIds);
-
-        if (celebrityRoleTypes is null)
-        {
-            return Result<CelebrityDto>.Failure("Invalid role type ids.", 400);
-        }
-
-        var celebrityRoles = celebrityRoleTypes.Select(celebrityRoleType => new CelebrityRole
-        {
-            CelebrityId = celebrity.Id,
-            RoleTypeId = celebrityRoleType.Id
-        });
-
-        unitOfWork.CelebrityRepository.AddCelebrityToRoles(celebrityRoles);
-
         var result = await unitOfWork.SaveChangesAsync();
 
         return result
