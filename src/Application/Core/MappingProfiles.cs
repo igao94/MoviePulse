@@ -1,4 +1,5 @@
 ﻿using Application.Celebrities.DTOs;
+using Application.Extensions;
 using Application.Movies.DTOs;
 using Application.Users.DTOs;
 using AutoMapper;
@@ -14,11 +15,11 @@ public class MappingProfiles : Profile
 
         CreateMap<CreateMovieDto, Movie>()
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src =>
-                ParseDateOnlyFromString(src.ReleaseDate)));
+                src.ReleaseDate.ParseDateOnlyFromString()));
 
         CreateMap<UpdateMovieDto, Movie>()
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src =>
-                ParseDateOnlyFromString(src.ReleaseDate)));
+                src.ReleaseDate.ParseDateOnlyFromString()));
 
         CreateMap<User, UserDto>();
 
@@ -26,14 +27,9 @@ public class MappingProfiles : Profile
 
         CreateMap<CreateCelebrityDto, Celebrity>()
             .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
-                ParseDateOnlyFromString(src.DateOfBirth)));
+                src.DateOfBirth.ParseDateOnlyFromString()));
 
         CreateMap<Celebrity, CelebrityDto>()
             .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.GetFullName()));
-    }
-
-    private static DateOnly ParseDateOnlyFromString(string str)
-    {
-        return DateOnly.ParseExact(str, "yyyy-MM-dd");
     }
 }
