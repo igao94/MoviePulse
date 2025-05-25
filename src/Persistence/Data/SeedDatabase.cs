@@ -8,13 +8,13 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
 {
     public async Task SeedDatabaseAsync()
     {
-        AddMovies();
-
         AddUserRoles();
 
-        AddCelebrityRoleTypes();
-
         AddUsers();
+
+        AddMovies();
+
+        AddCelebrityRoleTypes();
 
         await context.SaveChangesAsync();
     }
@@ -41,6 +41,12 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                 {
                     Id = CelebrityRoleTypes.DirectorId,
                     Name = CelebrityRoleTypes.Director
+                },
+
+                new()
+                {
+                    Id = CelebrityRoleTypes.WriterId,
+                    Name = CelebrityRoleTypes.Writer
                 }
             ];
 

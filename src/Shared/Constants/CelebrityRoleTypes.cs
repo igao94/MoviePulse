@@ -10,4 +10,7 @@ public static class CelebrityRoleTypes
 
     public const string ProducerId = "producer-id";
     public const string Producer = "Producer";
+
+    public const string WriterId = "writer-id";
+    public const string Writer = "Writer";
 }
