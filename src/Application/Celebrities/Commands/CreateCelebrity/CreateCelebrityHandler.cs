@@ -20,6 +20,11 @@ public class CreateCelebrityHandler(IUnitOfWork unitOfWork,
         var celebrityRoleTypes = await unitOfWork.CelebrityRepository
             .GetCelebrityRoleTypesByIdsAsync(request.CreateCelebrityDto.RoleTypeIds);
 
+        if (celebrityRoleTypes is null)
+        {
+            return Result<CelebrityDto>.Failure("Invalid role type ids.", 400);
+        }
+
         var celebrityRoles = celebrityRoleTypes.Select(celebrityRoleType => new CelebrityRole
         {
             CelebrityId = celebrity.Id,
