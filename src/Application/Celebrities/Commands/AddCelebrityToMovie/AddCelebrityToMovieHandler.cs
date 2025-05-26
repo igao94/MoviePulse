@@ -11,14 +11,15 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
     public async Task<Result<Unit>> Handle(AddCelebrityToMovieCommand request,
         CancellationToken cancellationToken)
     {
-        var movie = await unitOfWork.MovieRepository.GetMovieByIdAsync(request.MovieId);
+        var movie = await unitOfWork.MovieRepository.GetMovieByIdAsync(request.AddCelebrityToMovieDto.MovieId);
 
         if (movie is null)
         {
             return Result<Unit>.Failure("Movie not found.", 404);
         }
 
-        var celebrity = await unitOfWork.CelebrityRepository.GetCelebrityByIdAsync(request.CelebrityId);
+        var celebrity = await unitOfWork.CelebrityRepository
+            .GetCelebrityByIdAsync(request.AddCelebrityToMovieDto.CelebrityId);
 
         if (celebrity is null)
         {
@@ -26,14 +27,17 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
         }
 
         var celebrityRoleTypes = await unitOfWork.CelebrityRepository
-            .GetCelebrityRoleTypesByIdsAsync(request.RoleTypeIds);
+            .GetCelebrityRoleTypesByIdsAsync(request.AddCelebrityToMovieDto.RoleTypeIds);
 
         if (celebrityRoleTypes is null)
         {
             return Result<Unit>.Failure("Invalid role type ids.", 400);
         }
 
-        var movieRoles = await AddMovieRolesAsync(movie.Id, celebrity.Id, celebrityRoleTypes);
+        var movieRoles = await GetMovieRolesAsync(movie.Id,
+            celebrity.Id,
+            request.AddCelebrityToMovieDto.CharacterName,
+            celebrityRoleTypes);
 
         if (movieRoles is null)
         {
@@ -50,8 +54,9 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
             : Result<Unit>.Failure("Failed to add movie roles.", 400);
     }
 
-    private async Task<IEnumerable<MovieRole>?> AddMovieRolesAsync(string movieId,
+    private async Task<IEnumerable<MovieRole>?> GetMovieRolesAsync(string movieId,
         string celebrityId,
+        string? characterName,
         IEnumerable<CelebrityRoleType> celebrityRoleTypes)
     {
         var existingMovieRoles = await unitOfWork.CelebrityRepository
@@ -65,7 +70,8 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
             {
                 MovieId = movieId,
                 CelebrityId = celebrityId,
-                RoleTypeId = celebrityRoleType.Id
+                RoleTypeId = celebrityRoleType.Id,
+                CharacterName = characterName
             });
 
         if (!newMovieRoles.Any())

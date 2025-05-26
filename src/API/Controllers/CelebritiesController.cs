@@ -18,8 +18,8 @@ public class CelebritiesController : BaseApiController
 
     [Authorize(Policy = PolicyTypes.RequireAdminRole)]
     [HttpPost("add-celebrity-to-movie")]
-    public async Task<ActionResult> AddCelebrityToMovie(AddCelebrityToMovieCommand command)
+    public async Task<ActionResult> AddCelebrityToMovie(AddCelebrityToMovieDto addCelebrityToMovieDto)
     {
-        return HandleResult(await Mediator.Send(command));
+        return HandleResult(await Mediator.Send(new AddCelebrityToMovieCommand(addCelebrityToMovieDto)));
     }
 }
