@@ -34,18 +34,15 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
             return Result<Unit>.Failure("Invalid role type ids.", 400);
         }
 
-        var movieRoles = await GetMovieRolesAsync(movie.Id,
+        var addResult = await AddMovieRolesAsync(movie.Id,
             celebrity.Id,
             request.AddCelebrityToMovieDto.CharacterName,
             celebrityRoleTypes);
 
-        if (movieRoles is null)
+        if (!addResult.IsSuccess)
         {
-            return Result<Unit>
-                .Failure("All selected roles already exist for this celebrity in the movie.", 400);
+            return Result<Unit>.Failure(addResult.Error!, 400);
         }
-
-        unitOfWork.CelebrityRepository.AddMovieRoles(movieRoles);
 
         var result = await unitOfWork.SaveChangesAsync();
 
@@ -54,13 +51,22 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
             : Result<Unit>.Failure("Failed to add movie roles.", 400);
     }
 
-    private async Task<IEnumerable<MovieRole>?> GetMovieRolesAsync(string movieId,
+    private async Task<Result<Unit>> AddMovieRolesAsync(string movieId,
         string celebrityId,
         string? characterName,
         IEnumerable<CelebrityRoleType> celebrityRoleTypes)
     {
         var existingMovieRoles = await unitOfWork.CelebrityRepository
             .GetMovieRolesByMovieIdAndCelebrityIdAsync(movieId, celebrityId);
+
+        var anyCharacterNameMismatch = existingMovieRoles
+            .Any(mr => !string.Equals(mr.CharacterName, characterName, StringComparison.OrdinalIgnoreCase));
+
+        if (anyCharacterNameMismatch)
+        {
+            return Result<Unit>
+                .Failure("Character name cannot be changed for existing roles in this movie.", 400);
+        }
 
         var existingRoleTypeIds = existingMovieRoles.Select(mr => mr.RoleTypeId);
 
@@ -76,9 +82,11 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
 
         if (!newMovieRoles.Any())
         {
-            return null;
+            return Result<Unit>.Failure("All selected roles already exist.", 400);
         }
 
-        return newMovieRoles;
+        unitOfWork.CelebrityRepository.AddMovieRoles(newMovieRoles);
+
+        return Result<Unit>.Success(Unit.Value);
     }
 }
