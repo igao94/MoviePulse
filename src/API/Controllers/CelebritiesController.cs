@@ -1,6 +1,7 @@
 ﻿using Application.Celebrities.Commands.AddCelebrityToMovie;
 using Application.Celebrities.Commands.CreateCelebrity;
 using Application.Celebrities.DTOs;
+using Application.Celebrities.Queries.GetCelebrityById;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Constants;
@@ -13,7 +14,9 @@ public class CelebritiesController : BaseApiController
     [HttpPost]
     public async Task<ActionResult<CelebrityDto>> CreateCelebrity(CreateCelebrityDto createCelebrityDto)
     {
-        return HandleResult(await Mediator.Send(new CreateCelebrityCommand(createCelebrityDto)));
+        var result = await Mediator.Send(new CreateCelebrityCommand(createCelebrityDto));
+
+        return HandleCreatedResult(result, nameof(GetCelebrityById), new { result.Value?.Id }, result.Value);
     }
 
     [Authorize(Policy = PolicyTypes.RequireAdminRole)]
@@ -21,5 +24,11 @@ public class CelebritiesController : BaseApiController
     public async Task<ActionResult> AddCelebrityToMovie(AddCelebrityToMovieDto addCelebrityToMovieDto)
     {
         return HandleResult(await Mediator.Send(new AddCelebrityToMovieCommand(addCelebrityToMovieDto)));
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<CelebrityDto>> GetCelebrityById(string id)
+    {
+        return HandleResult(await Mediator.Send(new GetCelebrityByIdQuery(id)));
     }
 }
