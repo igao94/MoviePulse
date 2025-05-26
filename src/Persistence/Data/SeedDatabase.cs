@@ -16,7 +16,110 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
 
         AddCelebrityRoleTypes();
 
+        AddCelebrities();
+
         await context.SaveChangesAsync();
+    }
+
+    private void AddCelebrities()
+    {
+        if (!context.Celebrities.Any())
+        {
+            List<Celebrity> celebrities =
+            [
+                new ()
+                {
+                    Id = "arnold-id",
+                    FirstName = "Arnold",
+                    LastName = "Schwarzenegger",
+                    Bio = "Arnold Schwarzenegger is an Austrian-American actor, businessman, former politician and professional bodybuilder. He gained worldwide fame as a Hollywood action film icon and served as the 38th governor of California.",
+                    DateOfBirth = new DateOnly(1947, 7, 30)
+                },
+
+                new ()
+                {
+                    Id = "tom-id",
+                    FirstName = "Tom",
+                    LastName = "Hanks",
+                    Bio = "Tom Hanks is an American actor and filmmaker known for his roles in iconic movies such as Forrest Gump, Saving Private Ryan, and Cast Away. He is widely regarded as one of the most beloved figures in American cinema.",
+                    DateOfBirth = new DateOnly(1956, 7, 9)
+                },
+
+                new ()
+                {
+                    Id = "jennifer-id",
+                    FirstName = "Jennifer",
+                    LastName = "Lawrence",
+                    Bio = "Jennifer Lawrence is an American actress who gained recognition for her role in The Hunger Games series. She has received numerous accolades, including an Academy Award for Best Actress for her role in Silver Linings Playbook.",
+                    DateOfBirth = new DateOnly(1990, 8, 15)
+                },
+
+                new ()
+                {
+                    Id = "chris-id",
+                    FirstName = "Chris",
+                    LastName = "Hemsworth",
+                    Bio = "Chris Hemsworth is an Australian actor best known for his portrayal of Thor in the Marvel Cinematic Universe. He has become one of the leading action stars in Hollywood.",
+                    DateOfBirth = new DateOnly(1983, 8, 11)
+                },
+
+                new ()
+                {
+                    Id = "emma-id",
+                    FirstName = "Emma",
+                    LastName = "Watson",
+                    Bio = "Emma Watson is a British actress and activist who rose to fame for playing Hermione Granger in the Harry Potter film series. She is also known for her advocacy work on gender equality.",
+                    DateOfBirth = new DateOnly(1990, 4, 15)
+                },
+
+                new ()
+                {
+                    Id = "leonardo-id",
+                    FirstName = "Leonardo",
+                    LastName = "DiCaprio",
+                    Bio = "Leonardo DiCaprio is an American actor and environmentalist. He is known for his roles in Titanic, Inception, and The Revenant, for which he won the Academy Award for Best Actor.",
+                    DateOfBirth = new DateOnly(1974, 11, 11)
+                },
+
+                new ()
+                {
+                    Id = "scarlett-id",
+                    FirstName = "Scarlett",
+                    LastName = "Johansson",
+                    Bio = "Scarlett Johansson is an American actress and singer. She is best known for her roles in films such as Lost in Translation and as Black Widow in the Marvel Cinematic Universe.",
+                    DateOfBirth = new DateOnly(1984, 11, 22)
+                },
+
+                new ()
+                {
+                    Id = "dwayne-id",
+                    FirstName = "Dwayne",
+                    LastName = "Johnson",
+                    Bio = "Dwayne Johnson, also known as 'The Rock', is an American actor, producer, and former professional wrestler. He became one of the highest-paid actors in Hollywood thanks to roles in the Fast & Furious franchise and other blockbusters.",
+                    DateOfBirth = new DateOnly(1972, 5, 2)
+                },
+
+                new ()
+                {
+                    Id = "gal-id",
+                    FirstName = "Gal",
+                    LastName = "Gadot",
+                    Bio = "Gal Gadot is an Israeli actress and model best known for her role as Wonder Woman in the DC Extended Universe. Before acting, she served in the Israel Defense Forces and won Miss Israel in 2004.",
+                    DateOfBirth = new DateOnly(1985, 4, 30)
+                },
+
+                new ()
+                {
+                    Id = "will-id",
+                    FirstName = "Will",
+                    LastName = "Smith",
+                    Bio = "Will Smith is an American actor, rapper, and film producer. He gained fame with The Fresh Prince of Bel-Air and went on to star in numerous box office hits like Men in Black, Ali, and The Pursuit of Happyness.",
+                    DateOfBirth = new DateOnly(1968, 9, 25)
+                }
+            ];
+
+            context.AddRange(celebrities);
+        }
     }
 
     private void AddCelebrityRoleTypes()
