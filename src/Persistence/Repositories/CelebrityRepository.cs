@@ -34,4 +34,9 @@ public class CelebrityRepository(AppDbContext context) : ICelebrityRepository
             .Where(mr => mr.MovieId == movieId && mr.CelebrityId == celebrityId)
             .ToListAsync();
     }
+
+    public async Task<IEnumerable<Celebrity>> GetAllCelebritiesAsync()
+    {
+        return await context.Celebrities.ToListAsync();
+    }
 }
