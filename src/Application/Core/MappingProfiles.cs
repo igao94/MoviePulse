@@ -31,5 +31,7 @@ public class MappingProfiles : Profile
 
         CreateMap<Celebrity, CelebrityDto>()
             .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.GetFullName()));
+
+        CreateMap<MovieRole, MovieRoleDto>();
     }
 }

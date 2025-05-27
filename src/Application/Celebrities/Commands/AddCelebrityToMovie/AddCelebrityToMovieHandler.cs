@@ -71,12 +71,12 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
         var existingRoleTypeIds = existingMovieRoles.Select(mr => mr.RoleTypeId);
 
         var newMovieRoles = celebrityRoleTypes
-            .Where(celebrityRoleType => !existingRoleTypeIds.Contains(celebrityRoleType.Id))
-            .Select(celebrityRoleType => new MovieRole
+            .Where(crt => !existingRoleTypeIds.Contains(crt.Id))
+            .Select(crt => new MovieRole
             {
                 MovieId = movieId,
                 CelebrityId = celebrityId,
-                RoleTypeId = celebrityRoleType.Id,
+                RoleTypeId = crt.Id,
                 CharacterName = characterName
             });
 

@@ -19,6 +19,14 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
         return await context.Movies.FindAsync(id);
     }
 
+    public async Task<Movie?> GetMovieWithCelebritiesByIdAsync(string id)
+    {
+        return await context.Movies
+            .Include(m => m.Celebrities).ThenInclude(c => c.Celebrity)
+            .Include(m => m.Celebrities).ThenInclude(c => c.RoleType)
+            .FirstOrDefaultAsync(m => m.Id == id);
+    }
+
     public async Task<bool> MovieExistAsync(string title)
     {
         return await context.Movies.AnyAsync(u => u.Title.ToLower() == title.ToLower());

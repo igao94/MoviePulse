@@ -11,13 +11,36 @@ public class GetMovieByIdHandler(IUnitOfWork unitOfWork,
 {
     public async Task<Result<MovieDto>> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
     {
-        var movie = await unitOfWork.MovieRepository.GetMovieByIdAsync(request.Id);
+        var movie = await unitOfWork.MovieRepository.GetMovieWithCelebritiesByIdAsync(request.Id);
 
         if (movie is null)
         {
             return Result<MovieDto>.Failure("Movie not found.", 404);
         }
 
-        return Result<MovieDto>.Success(mapper.Map<MovieDto>(movie));
+        var groupedCelebrities = movie.Celebrities
+            .GroupBy(mr => mr.CelebrityId)
+            .Select(g =>
+            {
+                var firstRole = g.First();
+
+                return new MovieRoleDto
+                {
+                    Id = firstRole.Celebrity.Id,
+                    FullName = firstRole.Celebrity.GetFullName(),
+                    Bio = firstRole.Celebrity.Bio,
+                    DateOfBirth = firstRole.Celebrity.DateOfBirth.ToString(),
+                    PictureUrl = firstRole.Celebrity.PictureUrl,
+                    CharacterName = firstRole.CharacterName,
+                    Roles = g.Select(mr => mr.RoleType.Name)
+                };
+            })
+            .ToList();
+
+        var movieDto = mapper.Map<MovieDto>(movie);
+
+        movieDto.Celebrities = groupedCelebrities;
+
+        return Result<MovieDto>.Success(movieDto);
     }
 }
