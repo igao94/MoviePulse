@@ -27,6 +27,10 @@ public class MappingProfiles : Profile
 
         CreateMap<CreateCelebrityDto, Celebrity>()
             .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                src.DateOfBirth.ParseDateOnlyFromString()));        
+        
+        CreateMap<UpdateCelebrityDto, Celebrity>()
+            .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
                 src.DateOfBirth.ParseDateOnlyFromString()));
 
         CreateMap<Celebrity, CelebrityDto>()

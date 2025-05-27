@@ -1,7 +1,6 @@
 ﻿using Application.Extensions;
 using Application.Movies.DTOs;
 using FluentValidation;
-using System.Globalization;
 
 namespace Application.Movies.Validators;
 
