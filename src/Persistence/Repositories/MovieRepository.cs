@@ -33,4 +33,13 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
     }
 
     public void RemoveMovie(Movie movie) => context.Movies.Remove(movie);
+
+    public async Task RemoveMovieRolesFromMovieAsync(string id)
+    {
+        var movieRoles = await context.MovieRoles
+            .Where(mr => mr.MovieId == id)
+            .ToListAsync();
+
+        context.MovieRoles.RemoveRange(movieRoles);
+    }
 }
