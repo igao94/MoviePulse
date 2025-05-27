@@ -77,7 +77,7 @@ public class AddCelebrityToMovieHandler(IUnitOfWork unitOfWork)
                 MovieId = movieId,
                 CelebrityId = celebrityId,
                 RoleTypeId = crt.Id,
-                CharacterName = characterName
+                CharacterName = string.IsNullOrEmpty(characterName) ? null : characterName
             });
 
         if (!newMovieRoles.Any())
