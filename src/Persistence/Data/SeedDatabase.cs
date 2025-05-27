@@ -29,52 +29,34 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
             [
                 new ()
                 {
-                    Id = "arnold-id",
-                    FirstName = "Arnold",
-                    LastName = "Schwarzenegger",
-                    Bio = "Arnold Schwarzenegger is an Austrian-American actor, businessman, former politician and professional bodybuilder. He gained worldwide fame as a Hollywood action film icon and served as the 38th governor of California.",
-                    DateOfBirth = new DateOnly(1947, 7, 30)
+                    Id = "cameron-id",
+                    FirstName = "James",
+                    LastName = "Cameron",
+                    Bio = "James Cameron is a Canadian filmmaker known for directing epic films such as Titanic and Avatar, both of which became the highest-grossing films of all time.",
+                    DateOfBirth = new DateOnly(1954, 8, 16)
                 },
 
                 new ()
                 {
-                    Id = "tom-id",
-                    FirstName = "Tom",
-                    LastName = "Hanks",
-                    Bio = "Tom Hanks is an American actor and filmmaker known for his roles in iconic movies such as Forrest Gump, Saving Private Ryan, and Cast Away. He is widely regarded as one of the most beloved figures in American cinema.",
-                    DateOfBirth = new DateOnly(1956, 7, 9)
+                    Id = "downey-id",
+                    FirstName = "Robert",
+                    LastName = "Downey Jr.",
+                    Bio = "Robert Downey Jr. is an American actor best known for his portrayal of Tony Stark / Iron Man in the Marvel Cinematic Universe, including Avengers: Endgame.",
+                    DateOfBirth = new DateOnly(1965, 4, 4)
                 },
 
                 new ()
                 {
-                    Id = "jennifer-id",
-                    FirstName = "Jennifer",
-                    LastName = "Lawrence",
-                    Bio = "Jennifer Lawrence is an American actress who gained recognition for her role in The Hunger Games series. She has received numerous accolades, including an Academy Award for Best Actress for her role in Silver Linings Playbook.",
-                    DateOfBirth = new DateOnly(1990, 8, 15)
+                    Id = "bale-id",
+                    FirstName = "Christian",
+                    LastName = "Bale",
+                    Bio = "Christian Bale is a British actor known for his role as Batman in The Dark Knight trilogy. He is praised for his intense method acting.",
+                    DateOfBirth = new DateOnly(1974, 1, 30)
                 },
 
                 new ()
                 {
-                    Id = "chris-id",
-                    FirstName = "Chris",
-                    LastName = "Hemsworth",
-                    Bio = "Chris Hemsworth is an Australian actor best known for his portrayal of Thor in the Marvel Cinematic Universe. He has become one of the leading action stars in Hollywood.",
-                    DateOfBirth = new DateOnly(1983, 8, 11)
-                },
-
-                new ()
-                {
-                    Id = "emma-id",
-                    FirstName = "Emma",
-                    LastName = "Watson",
-                    Bio = "Emma Watson is a British actress and activist who rose to fame for playing Hermione Granger in the Harry Potter film series. She is also known for her advocacy work on gender equality.",
-                    DateOfBirth = new DateOnly(1990, 4, 15)
-                },
-
-                new ()
-                {
-                    Id = "leonardo-id",
+                    Id = "dicaprio-id",
                     FirstName = "Leonardo",
                     LastName = "DiCaprio",
                     Bio = "Leonardo DiCaprio is an American actor and environmentalist. He is known for his roles in Titanic, Inception, and The Revenant, for which he won the Academy Award for Best Actor.",
@@ -83,38 +65,56 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
 
                 new ()
                 {
-                    Id = "scarlett-id",
-                    FirstName = "Scarlett",
-                    LastName = "Johansson",
-                    Bio = "Scarlett Johansson is an American actress and singer. She is best known for her roles in films such as Lost in Translation and as Black Widow in the Marvel Cinematic Universe.",
-                    DateOfBirth = new DateOnly(1984, 11, 22)
+                    Id = "winslet-id",
+                    FirstName = "Kate",
+                    LastName = "Winslet",
+                    Bio = "Kate Winslet is an English actress who gained international fame for her role as Rose in Titanic. She is the recipient of numerous awards, including an Academy Award.",
+                    DateOfBirth = new DateOnly(1975, 10, 5)
                 },
 
                 new ()
                 {
-                    Id = "dwayne-id",
-                    FirstName = "Dwayne",
-                    LastName = "Johnson",
-                    Bio = "Dwayne Johnson, also known as 'The Rock', is an American actor, producer, and former professional wrestler. He became one of the highest-paid actors in Hollywood thanks to roles in the Fast & Furious franchise and other blockbusters.",
-                    DateOfBirth = new DateOnly(1972, 5, 2)
+                    Id = "nolan-id",
+                    FirstName = "Christopher",
+                    LastName = "Nolan",
+                    Bio = "Christopher Nolan is a British-American filmmaker known for directing mind-bending blockbusters like Inception, Interstellar, and The Dark Knight Trilogy.",
+                    DateOfBirth = new DateOnly(1970, 7, 30)
                 },
 
                 new ()
                 {
-                    Id = "gal-id",
-                    FirstName = "Gal",
-                    LastName = "Gadot",
-                    Bio = "Gal Gadot is an Israeli actress and model best known for her role as Wonder Woman in the DC Extended Universe. Before acting, she served in the Israel Defense Forces and won Miss Israel in 2004.",
-                    DateOfBirth = new DateOnly(1985, 4, 30)
+                    Id = "crowe-id",
+                    FirstName = "Russell",
+                    LastName = "Crowe",
+                    Bio = "Russell Crowe is a New Zealand actor who won an Academy Award for his performance as Maximus in Gladiator.",
+                    DateOfBirth = new DateOnly(1964, 4, 7)
                 },
 
                 new ()
                 {
-                    Id = "will-id",
-                    FirstName = "Will",
-                    LastName = "Smith",
-                    Bio = "Will Smith is an American actor, rapper, and film producer. He gained fame with The Fresh Prince of Bel-Air and went on to star in numerous box office hits like Men in Black, Ali, and The Pursuit of Happyness.",
-                    DateOfBirth = new DateOnly(1968, 9, 25)
+                    Id = "tarantino-id",
+                    FirstName = "Quentin",
+                    LastName = "Tarantino",
+                    Bio = "Quentin Tarantino is an American filmmaker known for his distinctive style and nonlinear storytelling. He directed Pulp Fiction, a cult classic.",
+                    DateOfBirth = new DateOnly(1963, 3, 27)
+                },
+
+                new ()
+                {
+                    Id = "jackson-id",
+                    FirstName = "Peter",
+                    LastName = "Jackson",
+                    Bio = "Peter Jackson is a New Zealand film director best known for adapting J.R.R. Tolkien's The Lord of the Rings trilogy into award-winning films.",
+                    DateOfBirth = new DateOnly(1961, 10, 31)
+                },
+
+                new ()
+                {
+                    Id = "reeves-id",
+                    FirstName = "Keanu",
+                    LastName = "Reeves",
+                    Bio = "Keanu Reeves is a Canadian actor best known for his roles in The Matrix series and John Wick franchise.",
+                    DateOfBirth = new DateOnly(1964, 9, 2)
                 }
             ];
 
