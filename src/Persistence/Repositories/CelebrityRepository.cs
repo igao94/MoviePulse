@@ -39,4 +39,15 @@ public class CelebrityRepository(AppDbContext context) : ICelebrityRepository
     {
         return await context.Celebrities.ToListAsync();
     }
+
+    public void RemoveCelebrity(Celebrity celebrity) => context.Celebrities.Remove(celebrity);
+
+    public async Task RemoveMovieRolesForCelebrity(string id)
+    {
+        var movieRoles = await context.MovieRoles
+            .Where(mr => mr.CelebrityId == id)
+            .ToListAsync();
+
+        context.MovieRoles.RemoveRange(movieRoles);
+    }
 }

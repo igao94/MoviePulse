@@ -1,5 +1,6 @@
 ﻿using Application.Celebrities.Commands.AddCelebrityToMovie;
 using Application.Celebrities.Commands.CreateCelebrity;
+using Application.Celebrities.Commands.DeleteCelebrity;
 using Application.Celebrities.DTOs;
 using Application.Celebrities.Queries.GetAllCelebrities;
 using Application.Celebrities.Queries.GetCelebrityById;
@@ -37,5 +38,12 @@ public class CelebritiesController : BaseApiController
     public async Task<ActionResult> AddCelebrityToMovie(AddCelebrityToMovieDto addCelebrityToMovieDto)
     {
         return HandleResult(await Mediator.Send(new AddCelebrityToMovieCommand(addCelebrityToMovieDto)));
+    }
+
+    [Authorize(Policy = PolicyTypes.RequireAdminRole)]
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteCelebrity(string id)
+    {
+        return HandleResult(await Mediator.Send(new DeleteCelebrityCommand(id)));
     }
 }

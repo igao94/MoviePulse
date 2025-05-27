@@ -14,8 +14,6 @@ public class AddCelebityToMovieValidator : AbstractValidator<AddCelebrityToMovie
             .NotEmpty().WithMessage("CelebrityId is required.");
 
         RuleFor(x => x.AddCelebrityToMovieDto.RoleTypeIds)
-            .NotEmpty()
-            .Must(x => x.Any())
-            .WithMessage("At least one RoleTypeId is required.");
+            .NotEmpty().WithMessage("At least one RoleTypeId is required.");
     }
 }
