@@ -9,4 +9,5 @@ public class MovieRole
     public Movie Movie { get; set; } = null!;
     public string MovieId { get; set; } = null!;
     public string? CharacterName { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
