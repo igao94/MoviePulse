@@ -10,5 +10,5 @@ public interface IUserRepository
     Task<User?> GetUserByEmailAsync(string email);
     Task<bool> IsUsernameTakenAsync(string username);
     Task<bool> IsEmailTakenAsync(string email);
-    Task RemoveUserWatchlistAsync(string userId);
+    Task RemoveUserWatchlistAsync(string id);
 }

@@ -15,6 +15,8 @@ public class DeleteMovieHandler(IUnitOfWork unitOfWork) : IRequestHandler<Delete
             return Result<Unit>.Failure("Movie not found.", 404);
         }
 
+        await unitOfWork.MovieRepository.RemoveMovieWatchlistAsync(request.Id);
+
         await unitOfWork.MovieRepository.RemoveMovieRolesFromMovieAsync(movie.Id);
 
         unitOfWork.MovieRepository.RemoveMovie(movie);

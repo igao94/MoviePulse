@@ -28,10 +28,10 @@ public class UserRepository(AppDbContext context) : IUserRepository
 
     public void RemoveUser(User user) => context.Users.Remove(user);
 
-    public async Task RemoveUserWatchlistAsync(string userId)
+    public async Task RemoveUserWatchlistAsync(string id)
     {
         var watchlist = await context.Watchlist
-            .Where(wl => wl.UserId == userId)
+            .Where(wl => wl.UserId == id)
             .ToListAsync();
 
         context.Watchlist.RemoveRange(watchlist);
