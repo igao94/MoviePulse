@@ -12,4 +12,5 @@ public class User
     public string? PictureUrl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public ICollection<UserRole> Roles { get; set; } = [];
+    public ICollection<Watchlist> Watchlist { get; set; } = [];
 }
