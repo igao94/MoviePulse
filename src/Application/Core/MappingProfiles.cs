@@ -43,6 +43,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.MovieId))
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Movie.Title))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Movie.Description))
+            .ForMember(dest => dest.DurationInMinutes, opt => opt.MapFrom(src => src.Movie.DurationInMinutes))
             .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Movie.Rating))
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.Movie.ReleaseDate))
             .ForMember(dest => dest.Celebrities, opt =>

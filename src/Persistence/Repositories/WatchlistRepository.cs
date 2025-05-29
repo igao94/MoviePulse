@@ -34,6 +34,8 @@ public class WatchlistRepository(AppDbContext context) : IWatchlistRepository
             "titleDesc" => query.OrderByDescending(wl => wl.Movie.Title),
             "ratingAsc" => query.OrderBy(wl => wl.Movie.Rating),
             "ratingDesc" => query.OrderByDescending(wl => wl.Movie.Rating),
+            "durationAsc" => query.OrderBy(wl => wl.Movie.DurationInMinutes),
+            "durationDesc" => query.OrderByDescending(wl => wl.Movie.DurationInMinutes),
             _ => query.OrderByDescending(wl => wl.CreatedAt)
         };
 
