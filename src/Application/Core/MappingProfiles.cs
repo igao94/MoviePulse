@@ -2,6 +2,7 @@
 using Application.Extensions;
 using Application.Movies.DTOs;
 using Application.Users.DTOs;
+using Application.Watchlists.DTOs;
 using AutoMapper;
 using Domain.Entities;
 
@@ -27,8 +28,8 @@ public class MappingProfiles : Profile
 
         CreateMap<CreateCelebrityDto, Celebrity>()
             .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
-                src.DateOfBirth.ParseDateOnlyFromString()));        
-        
+                src.DateOfBirth.ParseDateOnlyFromString()));
+
         CreateMap<UpdateCelebrityDto, Celebrity>()
             .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
                 src.DateOfBirth.ParseDateOnlyFromString()));
@@ -37,5 +38,14 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.GetFullName()));
 
         CreateMap<MovieRole, MovieRoleDto>();
+
+        CreateMap<Watchlist, WatchlistDto>()
+            .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.MovieId))
+            .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Movie.Title))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Movie.Description))
+            .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Movie.Rating))
+            .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.Movie.ReleaseDate))
+            .ForMember(dest => dest.Celebrities, opt =>
+                opt.MapFrom(src => src.Movie.Celebrities.Select(c => c.Celebrity.GetFullName()).Distinct()));
     }
 }
