@@ -1,4 +1,5 @@
-﻿using Application.Watchlists.Commands.ToggleMovieInWatchlist;
+﻿using Application.Watchlists;
+using Application.Watchlists.Commands.ToggleMovieInWatchlist;
 using Application.Watchlists.DTOs;
 using Application.Watchlists.Queries.GetWatchlist;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,9 @@ public class WatchlistController : BaseApiController
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<WatchlistDto>>> GetWatchlist()
+    public async Task<ActionResult<IEnumerable<WatchlistDto>>> GetWatchlist
+        ([FromQuery] WatchlistParams watchlistParams)
     {
-        return HandleResult(await Mediator.Send(new GetWatchlistQuery()));
+        return HandleResult(await Mediator.Send(new GetWatchlistQuery(watchlistParams)));
     }
 }

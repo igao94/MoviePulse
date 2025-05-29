@@ -16,13 +16,26 @@ public class WatchlistRepository(AppDbContext context) : IWatchlistRepository
 
     public void RemoveFromWatchlist(Watchlist watchlist) => context.Watchlist.Remove(watchlist);
 
-    public async Task<IEnumerable<Watchlist>> GetUserWatchlistAsync(string userId)
+    public async Task<IEnumerable<Watchlist>> GetUserWatchlistAsync(string userId,
+        string? sort)
     {
-        return await context.Watchlist
+        var query = context.Watchlist
             .Include(wl => wl.Movie)
                 .ThenInclude(m => m.Celebrities)
                     .ThenInclude(c => c.Celebrity)
             .Where(wl => wl.UserId == userId)
-            .ToListAsync();
+            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(sort))
+        {
+            query = sort switch
+            {
+                "dateAsc" => query.OrderBy(wl => wl.Movie.ReleaseDate),
+                "dateDesc" => query.OrderByDescending(wl => wl.Movie.ReleaseDate),
+                _ => query.OrderBy(wl => wl.Movie.Title)
+            };
+        }
+
+        return await query.ToListAsync();
     }
 }

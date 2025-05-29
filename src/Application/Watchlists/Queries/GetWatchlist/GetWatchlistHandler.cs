@@ -14,7 +14,10 @@ public class GetWatchlistHandler(IUnitOfWork unitOfWork,
     public async Task<Result<IEnumerable<WatchlistDto>>> Handle(GetWatchlistQuery request,
         CancellationToken cancellationToken)
     {
-        var watchlist = await unitOfWork.WatchlistRepository.GetUserWatchlistAsync(userContext.GetUserId());
+        var userId = userContext.GetUserId();
+
+        var watchlist = await unitOfWork.WatchlistRepository
+            .GetUserWatchlistAsync(userId, request.WatchlistParams.Sort);
 
         return Result<IEnumerable<WatchlistDto>>.Success(mapper.Map<IEnumerable<WatchlistDto>>(watchlist));
     }

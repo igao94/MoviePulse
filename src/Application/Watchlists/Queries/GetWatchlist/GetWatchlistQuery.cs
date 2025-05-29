@@ -4,6 +4,7 @@ using MediatR;
 
 namespace Application.Watchlists.Queries.GetWatchlist;
 
-public class GetWatchlistQuery : IRequest<Result<IEnumerable<WatchlistDto>>>
+public class GetWatchlistQuery(WatchlistParams watchlistParams) : IRequest<Result<IEnumerable<WatchlistDto>>>
 {
+    public WatchlistParams WatchlistParams { get; set; } = watchlistParams;
 }
