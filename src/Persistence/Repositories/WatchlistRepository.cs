@@ -26,15 +26,16 @@ public class WatchlistRepository(AppDbContext context) : IWatchlistRepository
             .Where(wl => wl.UserId == userId)
             .AsQueryable();
 
-        if (!string.IsNullOrEmpty(sort))
+        query = sort switch
         {
-            query = sort switch
-            {
-                "dateAsc" => query.OrderBy(wl => wl.Movie.ReleaseDate),
-                "dateDesc" => query.OrderByDescending(wl => wl.Movie.ReleaseDate),
-                _ => query.OrderBy(wl => wl.Movie.Title)
-            };
-        }
+            "dateAsc" => query.OrderBy(wl => wl.Movie.ReleaseDate),
+            "dateDesc" => query.OrderByDescending(wl => wl.Movie.ReleaseDate),
+            "titleAsc" => query.OrderBy(wl => wl.Movie.Title),
+            "titleDesc" => query.OrderByDescending(wl => wl.Movie.Title),
+            "ratingAsc" => query.OrderBy(wl => wl.Movie.Rating),
+            "ratingDesc" => query.OrderByDescending(wl => wl.Movie.Rating),
+            _ => query.OrderByDescending(wl => wl.CreatedAt)
+        };
 
         return await query.ToListAsync();
     }
