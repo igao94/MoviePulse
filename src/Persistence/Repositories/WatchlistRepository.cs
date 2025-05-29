@@ -16,8 +16,7 @@ public class WatchlistRepository(AppDbContext context) : IWatchlistRepository
 
     public void RemoveFromWatchlist(Watchlist watchlist) => context.Watchlist.Remove(watchlist);
 
-    public async Task<IEnumerable<Watchlist>> GetUserWatchlistAsync(string userId,
-        string? sort)
+    public async Task<IEnumerable<Watchlist>> GetUserWatchlistAsync(string userId, string? sort)
     {
         var query = context.Watchlist
             .Include(wl => wl.Movie)
@@ -26,7 +25,7 @@ public class WatchlistRepository(AppDbContext context) : IWatchlistRepository
             .Where(wl => wl.UserId == userId)
             .AsQueryable();
 
-        query = sort switch
+        query = sort?.ToLower() switch
         {
             "dateAsc" => query.OrderBy(wl => wl.Movie.ReleaseDate),
             "dateDesc" => query.OrderByDescending(wl => wl.Movie.ReleaseDate),

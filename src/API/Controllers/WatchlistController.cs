@@ -1,5 +1,6 @@
 ﻿using Application.Watchlists;
 using Application.Watchlists.Commands.ToggleMovieInWatchlist;
+using Application.Watchlists.Commands.ToggleMovieWatchedStatus;
 using Application.Watchlists.DTOs;
 using Application.Watchlists.Queries.GetWatchlist;
 using Microsoft.AspNetCore.Mvc;
@@ -19,5 +20,11 @@ public class WatchlistController : BaseApiController
         ([FromQuery] WatchlistParams watchlistParams)
     {
         return HandleResult(await Mediator.Send(new GetWatchlistQuery(watchlistParams)));
+    }
+
+    [HttpPut("{movieId}")]
+    public async Task<ActionResult> ToggleMovieWatchedStatus(string movieId)
+    {
+        return HandleResult(await Mediator.Send(new ToggleMovieWatchedStatusCommand(movieId)));
     }
 }
