@@ -7,5 +7,6 @@ public interface IUnitOfWork
     public IRoleRepository RoleRepository { get; }
     public ICelebrityRepository CelebrityRepository { get; }
     public IWatchlistRepository WatchlistRepository { get; }
+    public IUserMovieRatingRepository UserMovieRatingRepository { get; }
     Task<bool> SaveChangesAsync();
 }
