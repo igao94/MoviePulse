@@ -13,4 +13,5 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public ICollection<UserRole> Roles { get; set; } = [];
     public ICollection<Watchlist> Watchlist { get; set; } = [];
+    public ICollection<UserMovieRating> MovieRatings { get; set; } = [];
 }
