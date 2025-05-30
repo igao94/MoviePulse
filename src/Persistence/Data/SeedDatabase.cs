@@ -243,8 +243,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "Avatar",
                     Description = "A paraplegic Marine dispatched to the moon Pandora becomes torn between following his orders and protecting the world he feels is his home.",
                     ReleaseDate = new DateOnly(2009, 12, 17),
-                    DurationInMinutes = 162,
-                    Rating = 7.9
+                    DurationInMinutes = 162
                 },
 
                 new ()
@@ -253,8 +252,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "Avengers: Endgame",
                     Description = "After the devastating events of Infinity War, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
                     ReleaseDate = new DateOnly(2019, 4, 26),
-                    DurationInMinutes = 181,
-                    Rating = 8.4
+                    DurationInMinutes = 181
                 },
 
                 new ()
@@ -263,8 +261,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "The Dark Knight",
                     Description = "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
                     ReleaseDate = new DateOnly(2008, 7, 18),
-                    DurationInMinutes = 152,
-                    Rating = 9.0
+                    DurationInMinutes = 152
                 },
 
                 new ()
@@ -273,8 +270,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "Inception",
                     Description = "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into a CEO's mind.",
                     ReleaseDate = new DateOnly(2010, 7, 8),
-                    DurationInMinutes = 148,
-                    Rating = 8.8
+                    DurationInMinutes = 148
                 },
 
                 new ()
@@ -283,8 +279,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "Titanic",
                     Description = "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.",
                     ReleaseDate = new DateOnly(1997, 12, 19),
-                    DurationInMinutes = 195,
-                    Rating = 7.9
+                    DurationInMinutes = 195
                 },
 
                 new ()
@@ -293,8 +288,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "Interstellar",
                     Description = "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
                     ReleaseDate = new DateOnly(2014, 10, 26),
-                    DurationInMinutes = 169,
-                    Rating = 8.6
+                    DurationInMinutes = 169
                 },
 
                 new ()
@@ -303,8 +297,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "Gladiator",
                     Description = "A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.",
                     ReleaseDate = new DateOnly(2000, 5, 5),
-                    DurationInMinutes = 155,
-                    Rating = 8.5
+                    DurationInMinutes = 155
                 },
 
                 new ()
@@ -313,8 +306,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "Pulp Fiction",
                     Description = "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
                     ReleaseDate = new DateOnly(1994, 10, 14),
-                    DurationInMinutes = 154,
-                    Rating = 8.9
+                    DurationInMinutes = 154
                 },
 
                 new ()
@@ -323,8 +315,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "The Lord of the Rings: The Return of the King",
                     Description = "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom.",
                     ReleaseDate = new DateOnly(2003, 12, 3),
-                    DurationInMinutes = 201,
-                    Rating = 9.0
+                    DurationInMinutes = 201
                 },
 
                 new ()
@@ -333,8 +324,7 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
                     Title = "The Matrix",
                     Description = "A computer hacker learns about the true nature of reality and his role in the war against its controllers.",
                     ReleaseDate = new DateOnly(1999, 3, 31),
-                    DurationInMinutes = 136,
-                    Rating = 8.7
+                    DurationInMinutes = 136
                 }
             ];
 

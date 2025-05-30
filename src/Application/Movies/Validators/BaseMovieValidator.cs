@@ -21,8 +21,5 @@ public class BaseMovieValidator<T, TDto> : AbstractValidator<T> where TDto : Bas
 
         RuleFor(x => selector(x).DurationInMinutes)
             .NotEmpty().WithMessage("DurationInMinutes is required.");
-
-        RuleFor(x => selector(x).Rating)
-            .NotEmpty().WithMessage("Rating is required.");
     }
 }
