@@ -14,4 +14,5 @@ public class User
     public ICollection<UserRole> Roles { get; set; } = [];
     public ICollection<Watchlist> Watchlist { get; set; } = [];
     public ICollection<UserMovieRating> MovieRatings { get; set; } = [];
+    public ICollection<UserMovieInteraction> UserMovieInteractions { get; set; } = [];
 }
