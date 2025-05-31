@@ -20,6 +20,7 @@ public class UserMovieRatingRepository(AppDbContext context) : IUserMovieRatingR
     public async Task<IEnumerable<(string MovieId, double AverageRating)>> GetAverageRatingForMoviesAsync()
     {
         var list = await context.UserMovieRatings
+            .Where(umr => umr.CreatedAt > umr.Movie.LastRatingCheck)
             .GroupBy(umr => umr.MovieId)
             .Select(g => new
             {

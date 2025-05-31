@@ -53,6 +53,8 @@ public class RateMovieHandler(IUnitOfWork unitOfWork,
         else
         {
             userMovieRating.Rating = rating;
+
+            userMovieRating.CreatedAt = DateTime.UtcNow;
         }
     }
 }

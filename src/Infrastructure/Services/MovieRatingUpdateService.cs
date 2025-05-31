@@ -33,6 +33,8 @@ public class MovieRatingUpdateService(IServiceScopeFactory serviceScopeFactory) 
             if (movie is not null)
             {
                 movie.Rating = averageMovieRating;
+
+                movie.LastRatingCheck = DateTime.UtcNow;
             }
         }
 
