@@ -17,23 +17,22 @@ public class MovieRatingUpdateService(IServiceScopeFactory serviceScopeFactory) 
             await Task.Delay(_checkInterval, stoppingToken);
         }
     }
-    
+
     private async Task UpdateMovieRatingAsync()
     {
         using var scope = serviceScopeFactory.CreateScope();
 
         var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-        var averageMovieRatingAsync = await unitOfWork.UserMovieRatingRepository
-            .GetAverageRatingForMoviesAsync();
+        var averageMovieRatings = await unitOfWork.UserMovieRatingRepository.GetAverageRatingForMoviesAsync();
 
-        foreach (var (movieId, averageRating) in averageMovieRatingAsync)
+        foreach (var (movieId, averageMovieRating) in averageMovieRatings)
         {
             var movie = await unitOfWork.MovieRepository.GetMovieByIdAsync(movieId);
 
             if (movie is not null)
             {
-                movie.Rating = averageRating;
+                movie.Rating = averageMovieRating;
             }
         }
 
