@@ -11,5 +11,4 @@ public interface IMovieRepository
     void AddMovie(Movie movie);
     Task<bool> MovieExistAsync(string title);
     Task RemoveMovieRolesFromMovieAsync(string id);
-    Task RemoveMovieWatchlistAsync(string id);
 }

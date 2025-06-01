@@ -17,8 +17,6 @@ public class DeleteUserHandler(IUnitOfWork unitOfWork,
             return Result<Unit>.Failure("User not found.", 404);
         }
 
-        await unitOfWork.UserRepository.RemoveUserWatchlistAsync(user.Id);
-
         await unitOfWork.RoleRepository.RemoveUserRolesAsync(user.Id);
 
         unitOfWork.UserRepository.RemoveUser(user);

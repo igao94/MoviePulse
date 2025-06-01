@@ -12,7 +12,6 @@ public class Movie
     public string? PosterUrl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public ICollection<MovieRole> Celebrities { get; set; } = [];
-    public ICollection<Watchlist> Watchlist { get; set; } = [];
     public ICollection<UserMovieRating> MovieRatings { get; set; } = [];
     public ICollection<UserMovieInteraction> UserMovieInteractions { get; set; } = [];
 }

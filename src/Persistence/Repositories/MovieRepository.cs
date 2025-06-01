@@ -42,13 +42,4 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
 
         context.MovieRoles.RemoveRange(movieRoles);
     }
-
-    public async Task RemoveMovieWatchlistAsync(string id)
-    {
-        var watchlist = await context.Watchlist
-            .Where(wl => wl.MovieId == id)
-            .ToListAsync();
-
-        context.Watchlist.RemoveRange(watchlist);
-    }
 }
