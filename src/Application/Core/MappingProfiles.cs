@@ -1,8 +1,8 @@
 ﻿using Application.Celebrities.DTOs;
 using Application.Extensions;
 using Application.Movies.DTOs;
+using Application.UserMovieInteractions.DTOs;
 using Application.Users.DTOs;
-using Application.Watchlists.DTOs;
 using AutoMapper;
 using Domain.Entities;
 
@@ -39,7 +39,7 @@ public class MappingProfiles : Profile
 
         CreateMap<MovieRole, MovieRoleDto>();
 
-        CreateMap<Watchlist, WatchlistDto>()
+        CreateMap<UserMovieInteraction, UserMovieIntercationDto>()
             .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.MovieId))
             .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Movie.Title))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Movie.Description))
