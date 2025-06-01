@@ -9,7 +9,8 @@ public class UnitOfWork(AppDbContext context,
     IRoleRepository roleRepository,
     ICelebrityRepository celebrityRepository,
     IWatchlistRepository watchlistRepository,
-    IUserMovieRatingRepository userMovieRatingRepository) : IUnitOfWork
+    IUserMovieRatingRepository userMovieRatingRepository,
+    IUserMovieInteractionRepository userMovieInteractionRepository) : IUnitOfWork
 {
     public IMovieRepository MovieRepository => movieRepository;
 
@@ -22,6 +23,8 @@ public class UnitOfWork(AppDbContext context,
     public IWatchlistRepository WatchlistRepository => watchlistRepository;
 
     public IUserMovieRatingRepository UserMovieRatingRepository => userMovieRatingRepository;
+
+    public IUserMovieInteractionRepository UserMovieInteractionRepository => userMovieInteractionRepository;
 
     public async Task<bool> SaveChangesAsync() => await context.SaveChangesAsync() > 0;
 }

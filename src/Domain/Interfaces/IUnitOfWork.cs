@@ -8,5 +8,6 @@ public interface IUnitOfWork
     public ICelebrityRepository CelebrityRepository { get; }
     public IWatchlistRepository WatchlistRepository { get; }
     public IUserMovieRatingRepository UserMovieRatingRepository { get; }
+    public IUserMovieInteractionRepository UserMovieInteractionRepository { get; }
     Task<bool> SaveChangesAsync();
 }
