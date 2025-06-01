@@ -47,4 +47,9 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
     {
         context.UserMovieInteractions.Remove(userMovieInteraction);
     }
+
+    public async Task<UserMovieInteraction?> GetUserMovieInteractionAsync(string userId, string movieId)
+    {
+        return await context.UserMovieInteractions.FindAsync(userId, movieId);
+    }
 }

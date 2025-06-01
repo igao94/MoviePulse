@@ -1,5 +1,6 @@
 ﻿using Application.UserMovieInteractions;
 using Application.UserMovieInteractions.Commands.ToggleMovieInWatchlist;
+using Application.UserMovieInteractions.Commands.ToggleMovieWatchedStatus;
 using Application.UserMovieInteractions.DTOs;
 using Application.UserMovieInteractions.Queries.GetWatchlist;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,12 @@ public class UserMovieInteractionsController : BaseApiController
     public async Task<ActionResult> ToggleMovieInWatchlist(string movieId)
     {
         return HandleResult(await Mediator.Send(new ToggleMovieInWatchlistCommand(movieId)));
+    }
+
+    [HttpPut("mark-movie-as-watched/{movieId}")]
+    public async Task<ActionResult> MarkMovieAsWatch(string movieId)
+    {
+        return HandleResult(await Mediator.Send(new ToggleMovieWatchedStatusCommand(movieId)));
     }
 
     [HttpGet("get-watchlist")]

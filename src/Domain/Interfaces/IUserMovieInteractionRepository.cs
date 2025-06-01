@@ -8,4 +8,5 @@ public interface IUserMovieInteractionRepository
     void AddMovieToWatchlist(UserMovieInteraction userMovieInteraction);
     void RemoveMovieFromWatchlist(UserMovieInteraction userMovieInteraction);
     Task<IEnumerable<UserMovieInteraction>> GetWatchlistAsync(string userId, string? sort);
+    Task<UserMovieInteraction?> GetUserMovieInteractionAsync(string userId, string movieId);
 }
