@@ -49,11 +49,11 @@ public class ToggleMovieInWatchlistHandler(IUnitOfWork unitOfWork,
                 AddedToWatchlistAt = DateTime.UtcNow
             };
 
-            unitOfWork.UserMovieInteractionRepository.AddMovieToWatchlist(watchlist);
+            unitOfWork.UserMovieInteractionRepository.AddMovieInteraction(watchlist);
         }
         else
         {
-            unitOfWork.UserMovieInteractionRepository.RemoveMovieFromWatchlist(watchlist);
+            unitOfWork.UserMovieInteractionRepository.RemoveMovieInteraction(watchlist);
         }
     }
 }

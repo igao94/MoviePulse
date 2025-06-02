@@ -1,4 +1,5 @@
 ﻿using Application.UserMovieInteractions;
+using Application.UserMovieInteractions.Commands.RateMovie;
 using Application.UserMovieInteractions.Commands.ToggleMovieInWatchlist;
 using Application.UserMovieInteractions.Commands.ToggleMovieWatchedStatus;
 using Application.UserMovieInteractions.DTOs;
@@ -26,5 +27,11 @@ public class UserMovieInteractionsController : BaseApiController
         ([FromQuery] UserMovieIntercationParams userMovieIntercationParams)
     {
         return HandleResult(await Mediator.Send(new GetWatchlistQuery(userMovieIntercationParams)));
+    }
+
+    [HttpPost("rate-movie")]
+    public async Task<ActionResult> RateMovie(RateMovieDto rateMovieDto)
+    {
+        return HandleResult(await Mediator.Send(new RateMovieCommand(rateMovieDto)));
     }
 }

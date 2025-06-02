@@ -7,7 +7,7 @@ namespace Persistence.Repositories;
 
 public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieInteractionRepository
 {
-    public void AddMovieToWatchlist(UserMovieInteraction userMovieInteraction)
+    public void AddMovieInteraction(UserMovieInteraction userMovieInteraction)
     {
         context.UserMovieInteractions.Add(userMovieInteraction);
     }
@@ -43,7 +43,7 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
             .FirstOrDefaultAsync(um => um.UserId == userId && um.MovieId == movieId && um.IsInWatchlist);
     }
 
-    public void RemoveMovieFromWatchlist(UserMovieInteraction userMovieInteraction)
+    public void RemoveMovieInteraction(UserMovieInteraction userMovieInteraction)
     {
         context.UserMovieInteractions.Remove(userMovieInteraction);
     }
