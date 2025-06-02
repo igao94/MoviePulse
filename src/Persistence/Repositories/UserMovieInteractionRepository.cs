@@ -37,17 +37,6 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
         return await query.ToListAsync();
     }
 
-    public async Task<UserMovieInteraction?> GetWatchlistMovieAsync(string userId, string movieId)
-    {
-        return await context.UserMovieInteractions
-            .FirstOrDefaultAsync(um => um.UserId == userId && um.MovieId == movieId && um.IsInWatchlist);
-    }
-
-    public void RemoveMovieInteraction(UserMovieInteraction userMovieInteraction)
-    {
-        context.UserMovieInteractions.Remove(userMovieInteraction);
-    }
-
     public async Task<UserMovieInteraction?> GetUserMovieInteractionAsync(string userId, string movieId)
     {
         return await context.UserMovieInteractions.FindAsync(userId, movieId);
