@@ -33,7 +33,7 @@ public class MovieRatingUpdateService(IServiceScopeFactory serviceScopeFactory) 
 
             if (movie is not null)
             {
-                movie.Rating = Math.Round(averageMovieRating ?? 0, 1);
+                movie.Rating = averageMovieRating ?? 0;
             }
         }
 

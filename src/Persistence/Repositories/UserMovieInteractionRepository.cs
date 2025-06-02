@@ -10,7 +10,7 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
     public async Task<IEnumerable<UserMovieInteraction>> GetWatchlistAsync(string userId, string? sort)
     {
         var query = context.UserMovieInteractions
-            .Where(um => um.UserId == userId)
+            .Where(um => um.UserId == userId && um.IsInWatchlist)
             .Include(um => um.Movie)
                 .ThenInclude(m => m.Celebrities)
                     .ThenInclude(mr => mr.Celebrity)
