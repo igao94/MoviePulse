@@ -7,11 +7,6 @@ namespace Persistence.Repositories;
 
 public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieInteractionRepository
 {
-    public void AddMovieInteraction(UserMovieInteraction userMovieInteraction)
-    {
-        context.UserMovieInteractions.Add(userMovieInteraction);
-    }
-
     public async Task<IEnumerable<UserMovieInteraction>> GetWatchlistAsync(string userId, string? sort)
     {
         var query = context.UserMovieInteractions
@@ -37,8 +32,28 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
         return await query.ToListAsync();
     }
 
+    public void AddMovieInteraction(UserMovieInteraction userMovieInteraction)
+    {
+        context.UserMovieInteractions.Add(userMovieInteraction);
+    }
+
     public async Task<UserMovieInteraction?> GetUserMovieInteractionAsync(string userId, string movieId)
     {
         return await context.UserMovieInteractions.FindAsync(userId, movieId);
+    }
+
+    public async Task<IEnumerable<(string MovieId, double? AverageRating)>> CalculateAverageMovieRatingAsync()
+    {
+        var list = await context.UserMovieInteractions
+            .Where(um => um.Rating.HasValue)
+            .GroupBy(um => um.MovieId)
+            .Select(g => new
+            {
+                MovieId = g.Key,
+                AverageRating = g.Average(um => um.Rating)
+            })
+            .ToListAsync();
+
+        return list.Select(x => (x.MovieId, x.AverageRating));
     }
 }

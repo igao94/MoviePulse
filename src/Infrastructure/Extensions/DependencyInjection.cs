@@ -39,7 +39,7 @@ public static class DependencyInjection
 
         services.AddHttpContextAccessor();
 
-        //services.AddHostedService<MovieRatingUpdateService>();
+        services.AddHostedService<MovieRatingUpdateService>();
 
         return services;
     }

@@ -37,12 +37,12 @@ public class ToggleMovieInWatchlistHandler(IUnitOfWork unitOfWork,
 
     private async Task ToggleMovieInWatchlistAsync(string userId, string movieId)
     {
-        var movieInteraction = await unitOfWork.UserMovieInteractionRepository
+        var watchlist = await unitOfWork.UserMovieInteractionRepository
             .GetUserMovieInteractionAsync(userId, movieId);
 
-        if (movieInteraction is null)
+        if (watchlist is null)
         {
-            movieInteraction = new UserMovieInteraction
+            watchlist = new UserMovieInteraction
             {
                 UserId = userId,
                 MovieId = movieId,
@@ -50,22 +50,22 @@ public class ToggleMovieInWatchlistHandler(IUnitOfWork unitOfWork,
                 AddedToWatchlistAt = DateTime.UtcNow
             };
 
-            unitOfWork.UserMovieInteractionRepository.AddMovieInteraction(movieInteraction);
+            unitOfWork.UserMovieInteractionRepository.AddMovieInteraction(watchlist);
 
             return;
         }
 
-        if (movieInteraction.IsInWatchlist)
+        if (watchlist.IsInWatchlist)
         {
-            movieInteraction.IsInWatchlist = false;
+            watchlist.IsInWatchlist = false;
 
-            movieInteraction.AddedToWatchlistAt = movieInteraction.IsInWatchlist ? DateTime.UtcNow : null;
+            watchlist.AddedToWatchlistAt = watchlist.IsInWatchlist ? DateTime.UtcNow : null;
         }
         else
         {
-            movieInteraction.IsInWatchlist = true;
+            watchlist.IsInWatchlist = true;
 
-            movieInteraction.AddedToWatchlistAt = DateTime.UtcNow;
+            watchlist.AddedToWatchlistAt = DateTime.UtcNow;
         }
     }
 }
