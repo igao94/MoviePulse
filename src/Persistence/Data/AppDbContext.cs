@@ -13,7 +13,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Celebrity> Celebrities { get; set; }
     public DbSet<CelebrityRoleType> CelebrityRoleTypes { get; set; }
     public DbSet<MovieRole> MovieRoles { get; set; }
-    public DbSet<UserMovieRating> UserMovieRatings { get; set; }
     public DbSet<UserMovieInteraction> UserMovieInteractions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)

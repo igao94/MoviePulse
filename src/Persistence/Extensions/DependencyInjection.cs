@@ -34,8 +34,6 @@ public static class DependencyInjection
 
         services.AddScoped<ICelebrityRepository, CelebrityRepository>();
 
-        services.AddScoped<IUserMovieRatingRepository, UserMovieRatingRepository>();
-
         services.AddScoped<IUserMovieInteractionRepository, UserMovieInteractionRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();

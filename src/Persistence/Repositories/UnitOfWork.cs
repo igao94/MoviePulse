@@ -8,7 +8,6 @@ public class UnitOfWork(AppDbContext context,
     IUserRepository userRepository,
     IRoleRepository roleRepository,
     ICelebrityRepository celebrityRepository,
-    IUserMovieRatingRepository userMovieRatingRepository,
     IUserMovieInteractionRepository userMovieInteractionRepository) : IUnitOfWork
 {
     public IMovieRepository MovieRepository => movieRepository;
@@ -18,8 +17,6 @@ public class UnitOfWork(AppDbContext context,
     public IRoleRepository RoleRepository => roleRepository;
 
     public ICelebrityRepository CelebrityRepository => celebrityRepository;
-
-    public IUserMovieRatingRepository UserMovieRatingRepository => userMovieRatingRepository;
 
     public IUserMovieInteractionRepository UserMovieInteractionRepository => userMovieInteractionRepository;
 
