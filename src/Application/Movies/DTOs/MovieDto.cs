@@ -8,5 +8,6 @@ public class MovieDto : BaseMovieDto
     public string? PosterUrl { get; set; }
     public double Rating { get; set; }
     public double MaxRating { get; set; } = MovieRating.MaxRating;
-    public ICollection<MovieRoleDto> Celebrities { get; set; } = [];
+    public IEnumerable<MovieRoleDto> Celebrities { get; set; } = [];
+    public IEnumerable<string> Genres { get; set; } = [];
 }

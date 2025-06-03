@@ -11,7 +11,7 @@ public class GetMovieByIdHandler(IUnitOfWork unitOfWork,
 {
     public async Task<Result<MovieDto>> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
     {
-        var movie = await unitOfWork.MovieRepository.GetMovieWithCelebritiesByIdAsync(request.Id);
+        var movie = await unitOfWork.MovieRepository.GetMovieWithCelebritiesAndGenresByIdAsync(request.Id);
 
         if (movie is null)
         {

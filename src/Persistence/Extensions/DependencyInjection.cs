@@ -36,6 +36,8 @@ public static class DependencyInjection
 
         services.AddScoped<IUserMovieInteractionRepository, UserMovieInteractionRepository>();
 
+        services.AddScoped<IMovieGenreRepository, MovieGenreRepository>();
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<ISeedDatabase, SeedDatabase>();

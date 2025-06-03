@@ -18,7 +18,32 @@ public class SeedDatabase(AppDbContext context, IHmacPasswordHasher hmacPassword
 
         AddCelebrities();
 
+        AddGenres();
+
         await context.SaveChangesAsync();
+    }
+
+    private void AddGenres()
+    {
+        if (!context.Genres.Any())
+        {
+            List<Genre> genres =
+            [
+                new() { Id = Genres.ActionId, Name = Genres.Action },
+
+                new() { Id = Genres.AdventureId, Name = Genres.Adventure },
+
+                new() { Id = Genres.ComedyId, Name = Genres.Comedy },
+
+                new() { Id = Genres.DramaId, Name = Genres.Drama },
+
+                new() { Id = Genres.SciFiId, Name = Genres.SciFi },
+
+                new() { Id = Genres.ThrillerId, Name = Genres.Thriller }
+            ];
+
+            context.Genres.AddRange(genres);
+        }
     }
 
     private void AddCelebrities()

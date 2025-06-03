@@ -19,11 +19,12 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
         return await context.Movies.FindAsync(id);
     }
 
-    public async Task<Movie?> GetMovieWithCelebritiesByIdAsync(string id)
+    public async Task<Movie?> GetMovieWithCelebritiesAndGenresByIdAsync(string id)
     {
         return await context.Movies
             .Include(m => m.Celebrities).ThenInclude(c => c.Celebrity)
             .Include(m => m.Celebrities).ThenInclude(c => c.RoleType)
+            .Include(m => m.Genres).ThenInclude(g => g.Genre)
             .FirstOrDefaultAsync(m => m.Id == id);
     }
 

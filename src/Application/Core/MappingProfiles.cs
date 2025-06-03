@@ -12,7 +12,8 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Movie, MovieDto>();
+        CreateMap<Movie, MovieDto>()
+            .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres.Select(g => g.Genre.Name)));
 
         CreateMap<CreateMovieDto, Movie>()
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src =>
