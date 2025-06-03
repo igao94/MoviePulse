@@ -3,5 +3,6 @@
 public enum UserMovieInteractionFilter
 {
     Watchlist,
-    Rated
+    Rated,
+    Watched
 }

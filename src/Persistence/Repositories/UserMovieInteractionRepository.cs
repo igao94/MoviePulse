@@ -23,6 +23,7 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
         {
             UserMovieInteractionFilter.Watchlist => query.Where(um => um.IsInWatchlist),
             UserMovieInteractionFilter.Rated => query.Where(um => um.Rating.HasValue),
+            UserMovieInteractionFilter.Watched => query.Where(um => um.IsWatched),
             _ => query
         };
 
@@ -74,8 +75,8 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
             .ToListAsync();
 
         context.UserMovieInteractions.RemoveRange(interactions);
-    }    
-    
+    }
+
     public async Task DeleteMovieInteractionsAsync(string movieId)
     {
         var interactions = await context.UserMovieInteractions
