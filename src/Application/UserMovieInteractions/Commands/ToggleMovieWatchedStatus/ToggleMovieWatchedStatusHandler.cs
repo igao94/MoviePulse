@@ -28,10 +28,13 @@ public class ToggleMovieWatchedStatusHandler(IUnitOfWork unitOfWork,
         var userMovieInteraction = await unitOfWork.UserMovieInteractionRepository
             .GetUserMovieInteractionAsync(user.Id, movie.Id);
 
-        if (userMovieInteraction is not null)
+        if (userMovieInteraction!.Rating.HasValue && userMovieInteraction.IsWatched)
         {
-            userMovieInteraction.IsWatched = !userMovieInteraction.IsWatched;
+            return Result<Unit>
+                .Failure("To remove movie from your watch history, remove your rating first.", 400);
         }
+
+        userMovieInteraction.IsWatched = !userMovieInteraction.IsWatched;
 
         var result = await unitOfWork.SaveChangesAsync();
 

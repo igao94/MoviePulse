@@ -1,5 +1,6 @@
 ﻿using Application.UserMovieInteractions;
 using Application.UserMovieInteractions.Commands.RateMovie;
+using Application.UserMovieInteractions.Commands.RemoveRating;
 using Application.UserMovieInteractions.Commands.ToggleMovieInWatchlist;
 using Application.UserMovieInteractions.Commands.ToggleMovieWatchedStatus;
 using Application.UserMovieInteractions.DTOs;
@@ -28,8 +29,8 @@ public class UserMovieInteractionsController : BaseApiController
         ([FromQuery] UserMovieIntercationParams userMovieIntercationParams)
     {
         return HandleResult(await Mediator.Send(new GetWatchlistQuery(userMovieIntercationParams)));
-    }    
-    
+    }
+
     [HttpGet("get-user-ratings")]
     public async Task<ActionResult<IEnumerable<UserMovieIntercationDto>>> GetUserRatings
         ([FromQuery] UserMovieIntercationParams userMovieIntercationParams)
@@ -41,5 +42,11 @@ public class UserMovieInteractionsController : BaseApiController
     public async Task<ActionResult> RateMovie(RateMovieDto rateMovieDto)
     {
         return HandleResult(await Mediator.Send(new RateMovieCommand(rateMovieDto)));
+    }
+
+    [HttpPut("remove-rating/{movieId}")]
+    public async Task<ActionResult> RemoveRating(string movieId)
+    {
+        return HandleResult(await Mediator.Send(new RemoveRatingCommand(movieId)));
     }
 }
