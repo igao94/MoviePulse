@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Data;
 
@@ -11,9 +12,11 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250603103341_GenreEntityAdded")]
+    partial class GenreEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,24 +121,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("Domain.Entities.MovieGenre", b =>
-                {
-                    b.Property<string>("MovieId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("GenreId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MovieId", "GenreId");
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("MovieGenres");
                 });
 
             modelBuilder.Entity("Domain.Entities.MovieRole", b =>
@@ -279,25 +264,6 @@ namespace Persistence.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("Domain.Entities.MovieGenre", b =>
-                {
-                    b.HasOne("Domain.Entities.Genre", "Genre")
-                        .WithMany("Movies")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Movie", "Movie")
-                        .WithMany("Genres")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Genre");
-
-                    b.Navigation("Movie");
-                });
-
             modelBuilder.Entity("Domain.Entities.MovieRole", b =>
                 {
                     b.HasOne("Domain.Entities.Celebrity", "Celebrity")
@@ -373,16 +339,9 @@ namespace Persistence.Migrations
                     b.Navigation("Celebrities");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Genre", b =>
-                {
-                    b.Navigation("Movies");
-                });
-
             modelBuilder.Entity("Domain.Entities.Movie", b =>
                 {
                     b.Navigation("Celebrities");
-
-                    b.Navigation("Genres");
 
                     b.Navigation("UserMovieInteractions");
                 });

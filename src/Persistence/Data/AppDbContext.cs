@@ -14,6 +14,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<CelebrityRoleType> CelebrityRoleTypes { get; set; }
     public DbSet<MovieRole> MovieRoles { get; set; }
     public DbSet<UserMovieInteraction> UserMovieInteractions { get; set; }
+    public DbSet<Genre> Genres { get; set; }
+    public DbSet<MovieGenre> MovieGenres { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

@@ -12,4 +12,5 @@ public class Movie
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public ICollection<MovieRole> Celebrities { get; set; } = [];
     public ICollection<UserMovieInteraction> UserMovieInteractions { get; set; } = [];
+    public ICollection<MovieGenre> Genres { get; set; } = [];
 }
