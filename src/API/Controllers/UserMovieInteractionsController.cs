@@ -3,6 +3,7 @@ using Application.UserMovieInteractions.Commands.RateMovie;
 using Application.UserMovieInteractions.Commands.ToggleMovieInWatchlist;
 using Application.UserMovieInteractions.Commands.ToggleMovieWatchedStatus;
 using Application.UserMovieInteractions.DTOs;
+using Application.UserMovieInteractions.Queries.GetUserRatings;
 using Application.UserMovieInteractions.Queries.GetWatchlist;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,13 @@ public class UserMovieInteractionsController : BaseApiController
         ([FromQuery] UserMovieIntercationParams userMovieIntercationParams)
     {
         return HandleResult(await Mediator.Send(new GetWatchlistQuery(userMovieIntercationParams)));
+    }    
+    
+    [HttpGet("get-user-ratings")]
+    public async Task<ActionResult<IEnumerable<UserMovieIntercationDto>>> GetUserRatings
+        ([FromQuery] UserMovieIntercationParams userMovieIntercationParams)
+    {
+        return HandleResult(await Mediator.Send(new GetUserRatingsQuery(userMovieIntercationParams)));
     }
 
     [HttpPost("rate-movie")]

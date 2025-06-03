@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -7,14 +8,23 @@ namespace Persistence.Repositories;
 
 public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieInteractionRepository
 {
-    public async Task<IEnumerable<UserMovieInteraction>> GetWatchlistAsync(string userId, string? sort)
+    public async Task<IEnumerable<UserMovieInteraction>> GetUserMovieInteractionsAsync(string userId,
+        string? sort,
+        UserMovieInteractionFilter filter)
     {
         var query = context.UserMovieInteractions
-            .Where(um => um.UserId == userId && um.IsInWatchlist)
+            .Where(um => um.UserId == userId)
             .Include(um => um.Movie)
                 .ThenInclude(m => m.Celebrities)
                     .ThenInclude(mr => mr.Celebrity)
             .AsQueryable();
+
+        query = filter switch
+        {
+            UserMovieInteractionFilter.Watchlist => query.Where(um => um.IsInWatchlist),
+            UserMovieInteractionFilter.Rated => query.Where(um => um.Rating.HasValue),
+            _ => query
+        };
 
         query = sort?.ToLower() switch
         {

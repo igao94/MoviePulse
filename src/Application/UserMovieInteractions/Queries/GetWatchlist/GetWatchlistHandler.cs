@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Application.UserMovieInteractions.DTOs;
 using AutoMapper;
+using Domain.Enums;
 using Domain.Interfaces;
 using MediatR;
 
@@ -15,7 +16,9 @@ public class GetWatchlistHandler(IUnitOfWork unitOfWork,
         CancellationToken cancellationToken)
     {
         var watchlist = await unitOfWork.UserMovieInteractionRepository
-            .GetWatchlistAsync(userContext.GetUserId(), request.UserMovieIntercationParams.Sort);
+            .GetUserMovieInteractionsAsync(userContext.GetUserId(),
+                request.UserMovieIntercationParams.Sort,
+                UserMovieInteractionFilter.Watchlist);
 
         return Result<IEnumerable<UserMovieIntercationDto>>
             .Success(mapper.Map<IEnumerable<UserMovieIntercationDto>>(watchlist));
