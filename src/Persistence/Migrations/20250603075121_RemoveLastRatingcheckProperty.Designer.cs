@@ -12,8 +12,8 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250602115439_RemovedLastRatingCheckPropertyFromMovieEntity")]
-    partial class RemovedLastRatingCheckPropertyFromMovieEntity
+    [Migration("20250603075121_RemoveLastRatingcheckProperty")]
+    partial class RemoveLastRatingcheckProperty
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

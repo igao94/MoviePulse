@@ -66,4 +66,22 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
 
         return list.Select(x => (x.MovieId, x.AverageRating));
     }
+
+    public async Task DeleteUserInteractionsAsync(string userId)
+    {
+        var interactions = await context.UserMovieInteractions
+            .Where(um => um.UserId == userId)
+            .ToListAsync();
+
+        context.UserMovieInteractions.RemoveRange(interactions);
+    }    
+    
+    public async Task DeleteMovieInteractionsAsync(string movieId)
+    {
+        var interactions = await context.UserMovieInteractions
+            .Where(um => um.MovieId == movieId)
+            .ToListAsync();
+
+        context.UserMovieInteractions.RemoveRange(interactions);
+    }
 }
