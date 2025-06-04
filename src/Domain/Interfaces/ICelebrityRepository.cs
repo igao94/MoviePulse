@@ -9,7 +9,7 @@ public interface ICelebrityRepository
     Task<Celebrity?> GetCelebrityByIdAsync(string id);
     void AddMovieRoles(IEnumerable<MovieRole> movieRoles);
     Task<IEnumerable<MovieRole>> GetMovieRolesByMovieIdAndCelebrityIdAsync(string movieId, string celebrityId);
-    Task<IEnumerable<Celebrity>> GetAllCelebritiesAsync();
+    Task<IEnumerable<Celebrity>> GetAllCelebritiesAsync(string? search, string? sort);
     void RemoveCelebrity(Celebrity celebrity);
     Task RemoveMovieRolesForCelebrity(string id);
 }

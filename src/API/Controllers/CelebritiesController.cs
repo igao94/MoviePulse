@@ -1,4 +1,5 @@
-﻿using Application.Celebrities.Commands.AddCelebrityToMovie;
+﻿using Application.Celebrities;
+using Application.Celebrities.Commands.AddCelebrityToMovie;
 using Application.Celebrities.Commands.CreateCelebrity;
 using Application.Celebrities.Commands.DeleteCelebrity;
 using Application.Celebrities.Commands.UpdateCelebrity;
@@ -14,9 +15,10 @@ namespace API.Controllers;
 public class CelebritiesController : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CelebrityDto>>> GetAllCelebrities()
+    public async Task<ActionResult<IEnumerable<CelebrityDto>>> GetAllCelebrities(
+        [FromQuery] CelebritySpecParams celebritySpecParams)
     {
-        return HandleResult(await Mediator.Send(new GetAllCelebritiesQuery()));
+        return HandleResult(await Mediator.Send(new GetAllCelebritiesQuery(celebritySpecParams)));
     }
 
     [HttpGet("{id}")]

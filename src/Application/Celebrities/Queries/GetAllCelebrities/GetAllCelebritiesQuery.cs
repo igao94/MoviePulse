@@ -4,7 +4,8 @@ using MediatR;
 
 namespace Application.Celebrities.Queries.GetAllCelebrities;
 
-public class GetAllCelebritiesQuery : IRequest<Result<IEnumerable<CelebrityDto>>>
+public class GetAllCelebritiesQuery(CelebritySpecParams celebritySpecParams)
+    : IRequest<Result<IEnumerable<CelebrityDto>>>
 {
-
+    public CelebritySpecParams CelebritySpecParams { get; set; } = celebritySpecParams;
 }
