@@ -4,7 +4,7 @@ namespace Domain.Interfaces;
 
 public interface IMovieRepository
 {
-    Task<IEnumerable<Movie>> GetAllMoviesAsync(string? search);
+    Task<IEnumerable<Movie>> GetAllMoviesAsync(string? search, string? sort);
     Task<Movie?> GetMovieByIdAsync(string id);
     Task<Movie?> GetMovieWithCelebritiesAndGenresByIdAsync(string id);
     void RemoveMovie(Movie movie);

@@ -12,7 +12,8 @@ public class GetAllMoviesHandler(IUnitOfWork unitOfWork,
     public async Task<Result<IEnumerable<MovieDto>>> Handle(GetAllMoviesQuery request,
         CancellationToken cancellationToken)
     {
-        var movies = await unitOfWork.MovieRepository.GetAllMoviesAsync(request.MovieSpecParams.Search);
+        var movies = await unitOfWork.MovieRepository
+            .GetAllMoviesAsync(request.MovieSpecParams.Search, request.MovieSpecParams.Sort);
 
         return Result<IEnumerable<MovieDto>>.Success(mapper.Map<IEnumerable<MovieDto>>(movies));
     }

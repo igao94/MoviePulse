@@ -9,7 +9,7 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
 {
     public void AddMovie(Movie movie) => context.Movies.Add(movie);
 
-    public async Task<IEnumerable<Movie>> GetAllMoviesAsync(string? search)
+    public async Task<IEnumerable<Movie>> GetAllMoviesAsync(string? search, string? sort)
     {
         var query = context.Movies
             .OrderByDescending(m => m.CreatedAt)
@@ -22,6 +22,19 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
                 m.Description.Contains(search) ||
                 m.Genres.Any(g => g.Genre.Name.Contains(search)));
         }
+
+        query = sort switch
+        {
+            "titleAsc" => query.OrderBy(m => m.Title),
+            "titleDesc" => query.OrderByDescending(m => m.Title),
+            "releaseDateAsc" => query.OrderBy(m => m.ReleaseDate),
+            "releaseDateDesc" => query.OrderByDescending(m => m.ReleaseDate),
+            "durationAsc" => query.OrderBy(m => m.DurationInMinutes),
+            "durationDesc" => query.OrderByDescending(m => m.DurationInMinutes),
+            "ratingAsc" => query.OrderBy(m => m.Rating),
+            "ratingDesc" => query.OrderByDescending(m => m.Rating),
+            _ => query
+        };
 
         return await query.ToListAsync();
     }

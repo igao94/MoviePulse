@@ -10,4 +10,6 @@ public class MovieSpecParams
 
         set => _search = value?.ToLower();
     }
+
+    public string? Sort { get; set; }
 }
