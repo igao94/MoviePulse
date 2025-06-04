@@ -27,16 +27,16 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
             _ => query
         };
 
-        query = sort?.ToLower() switch
+        query = sort switch
         {
-            "releasedateasc" => query.OrderBy(um => um.Movie.ReleaseDate),
-            "releasedatedesc" => query.OrderByDescending(um => um.Movie.ReleaseDate),
-            "titleasc" => query.OrderBy(um => um.Movie.Title),
-            "titledesc" => query.OrderByDescending(um => um.Movie.Title),
-            "ratingasc" => query.OrderBy(um => um.Movie.Rating),
-            "ratingdesc" => query.OrderByDescending(um => um.Movie.Rating),
-            "durationasc" => query.OrderBy(um => um.Movie.DurationInMinutes),
-            "durationdesc" => query.OrderByDescending(um => um.Movie.DurationInMinutes),
+            "releaseDateAsc" => query.OrderBy(um => um.Movie.ReleaseDate),
+            "releaseDateDesc" => query.OrderByDescending(um => um.Movie.ReleaseDate),
+            "titleAsc" => query.OrderBy(um => um.Movie.Title),
+            "titleDesc" => query.OrderByDescending(um => um.Movie.Title),
+            "ratingAsc" => query.OrderBy(um => um.Movie.Rating),
+            "ratingDesc" => query.OrderByDescending(um => um.Movie.Rating),
+            "durationAsc" => query.OrderBy(um => um.Movie.DurationInMinutes),
+            "durationDesc" => query.OrderByDescending(um => um.Movie.DurationInMinutes),
             _ => query.OrderByDescending(um => um.AddedToWatchlistAt)
         };
 

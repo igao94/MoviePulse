@@ -9,9 +9,21 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
 {
     public void AddMovie(Movie movie) => context.Movies.Add(movie);
 
-    public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
+    public async Task<IEnumerable<Movie>> GetAllMoviesAsync(string? search)
     {
-        return await context.Movies.ToListAsync();
+        var query = context.Movies
+            .OrderByDescending(m => m.CreatedAt)
+            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(m =>
+                m.Title.Contains(search) ||
+                m.Description.Contains(search) ||
+                m.Genres.Any(g => g.Genre.Name.Contains(search)));
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<Movie?> GetMovieByIdAsync(string id)

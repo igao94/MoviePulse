@@ -4,6 +4,7 @@ using MediatR;
 
 namespace Application.Movies.Queries.GetAllMovies;
 
-public class GetAllMoviesQuery : IRequest<Result<IEnumerable<MovieDto>>>
+public class GetAllMoviesQuery(MovieSpecParams movieSpecParams) : IRequest<Result<IEnumerable<MovieDto>>>
 {
+    public MovieSpecParams MovieSpecParams { get; set; } = movieSpecParams;
 }

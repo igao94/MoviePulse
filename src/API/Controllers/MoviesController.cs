@@ -1,4 +1,5 @@
-﻿using Application.Movies.Commands.AddGenreToMovie;
+﻿using Application.Movies;
+using Application.Movies.Commands.AddGenreToMovie;
 using Application.Movies.Commands.CreateMovie;
 using Application.Movies.Commands.DeleteMovie;
 using Application.Movies.Commands.UpdateMovie;
@@ -14,9 +15,9 @@ namespace API.Controllers;
 public class MoviesController : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
+    public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies([FromQuery] MovieSpecParams movieSpecParams)
     {
-        return HandleResult(await Mediator.Send(new GetAllMoviesQuery()));
+        return HandleResult(await Mediator.Send(new GetAllMoviesQuery(movieSpecParams)));
     }
 
     [HttpGet("{id}")]
