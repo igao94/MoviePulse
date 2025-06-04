@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 
 namespace Persistence.Repositories;
@@ -19,5 +20,14 @@ public class MovieGenreRepository(AppDbContext context) : IMovieGenreRepository
     public async Task<MovieGenre?> GetMovieGenreByIdAsync(string movieId, string genreId)
     {
         return await context.MovieGenres.FindAsync(movieId, genreId);
+    }
+
+    public async Task RemoveMovieGenresAsync(string movieId)
+    {
+        var genres = await context.MovieGenres
+            .Where(mg => mg.MovieId == movieId)
+            .ToListAsync();
+
+        context.MovieGenres.RemoveRange(genres);
     }
 }
