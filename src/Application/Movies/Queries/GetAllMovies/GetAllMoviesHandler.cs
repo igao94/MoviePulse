@@ -7,14 +7,20 @@ using MediatR;
 namespace Application.Movies.Queries.GetAllMovies;
 
 public class GetAllMoviesHandler(IUnitOfWork unitOfWork,
-    IMapper mapper) : IRequestHandler<GetAllMoviesQuery, Result<IEnumerable<MovieDto>>>
+    IMapper mapper) : IRequestHandler<GetAllMoviesQuery, Result<PagedList<MovieDto, DateTime?>>>
 {
-    public async Task<Result<IEnumerable<MovieDto>>> Handle(GetAllMoviesQuery request,
+    public async Task<Result<PagedList<MovieDto, DateTime?>>> Handle(GetAllMoviesQuery request,
         CancellationToken cancellationToken)
     {
-        var movies = await unitOfWork.MovieRepository
-            .GetAllMoviesAsync(request.MovieSpecParams.Search, request.MovieSpecParams.Sort);
+        var (movies, nextCursor) = await unitOfWork.MovieRepository
+            .GetAllMoviesAsync(request.MovieSpecParams.Search,
+                request.MovieSpecParams.PageSize,
+                request.MovieSpecParams.Cursor);
 
-        return Result<IEnumerable<MovieDto>>.Success(mapper.Map<IEnumerable<MovieDto>>(movies));
+        return Result<PagedList<MovieDto, DateTime?>>.Success(new PagedList<MovieDto, DateTime?>
+        {
+            Items = mapper.Map<IEnumerable<MovieDto>>(movies),
+            NextCursor = nextCursor
+        });
     }
 }

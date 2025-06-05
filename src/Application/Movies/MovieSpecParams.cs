@@ -1,6 +1,8 @@
-﻿namespace Application.Movies;
+﻿using Application.Core;
 
-public class MovieSpecParams
+namespace Application.Movies;
+
+public class MovieSpecParams : PaginationParams<DateTime?>
 {
     private string? _search;
 
@@ -10,6 +12,4 @@ public class MovieSpecParams
 
         set => _search = value?.ToLower();
     }
-
-    public string? Sort { get; set; }
 }

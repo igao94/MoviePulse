@@ -41,6 +41,11 @@ public class CelebrityRepository(AppDbContext context) : ICelebrityRepository
             .OrderBy(c => c.CreatedAt)
             .AsQueryable();
 
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(c => c.FirstName.Contains(search) || c.LastName.Contains(search));
+        }
+
         query = sort switch
         {
             "nameAsc" => query.OrderBy(c => c.FirstName),
@@ -49,11 +54,6 @@ public class CelebrityRepository(AppDbContext context) : ICelebrityRepository
             "dateOfBirthDesc" => query.OrderByDescending(c => c.DateOfBirth),
             _ => query
         };
-
-        if (!string.IsNullOrEmpty(search))
-        {
-            query = query.Where(c => c.FirstName.Contains(search) || c.LastName.Contains(search));
-        }
 
         return await query.ToListAsync();
     }

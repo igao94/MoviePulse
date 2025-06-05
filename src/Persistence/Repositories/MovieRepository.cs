@@ -9,11 +9,11 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
 {
     public void AddMovie(Movie movie) => context.Movies.Add(movie);
 
-    public async Task<IEnumerable<Movie>> GetAllMoviesAsync(string? search, string? sort)
+    public async Task<(IEnumerable<Movie>, DateTime?)> GetAllMoviesAsync(string? search,
+        int pageSize,
+        DateTime? cursor)
     {
-        var query = context.Movies
-            .OrderByDescending(m => m.CreatedAt)
-            .AsQueryable();
+        var query = context.Movies.AsQueryable();
 
         if (!string.IsNullOrEmpty(search))
         {
@@ -23,20 +23,25 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
                 m.Genres.Any(g => g.Genre.Name.Contains(search)));
         }
 
-        query = sort switch
-        {
-            "titleAsc" => query.OrderBy(m => m.Title),
-            "titleDesc" => query.OrderByDescending(m => m.Title),
-            "releaseDateAsc" => query.OrderBy(m => m.ReleaseDate),
-            "releaseDateDesc" => query.OrderByDescending(m => m.ReleaseDate),
-            "durationAsc" => query.OrderBy(m => m.DurationInMinutes),
-            "durationDesc" => query.OrderByDescending(m => m.DurationInMinutes),
-            "ratingAsc" => query.OrderBy(m => m.Rating),
-            "ratingDesc" => query.OrderByDescending(m => m.Rating),
-            _ => query
-        };
+        query = query.OrderBy(m => m.CreatedAt);
 
-        return await query.ToListAsync();
+        if (cursor.HasValue)
+        {
+            query = query.Where(m => m.CreatedAt > cursor);
+        }
+
+        var movies = await query.Take(pageSize + 1).ToListAsync();
+
+        DateTime? nextCursor = null;
+
+        if (movies.Count > pageSize)
+        {
+            nextCursor = movies.Last().CreatedAt;
+
+            movies.RemoveAt(movies.Count - 1);
+        }
+
+        return (movies, nextCursor);
     }
 
     public async Task<Movie?> GetMovieByIdAsync(string id)
