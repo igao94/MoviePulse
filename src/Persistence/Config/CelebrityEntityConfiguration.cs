@@ -15,5 +15,11 @@ public class CelebrityEntityConfiguration : IEntityTypeConfiguration<Celebrity>
         builder.Property(c => c.Bio).IsRequired();
 
         builder.Property(c => c.DateOfBirth).IsRequired();
+
+        builder.HasIndex(c => c.FirstName);
+
+        builder.HasIndex(c => c.LastName);
+
+        builder.HasIndex(c => c.CreatedAt);
     }
 }

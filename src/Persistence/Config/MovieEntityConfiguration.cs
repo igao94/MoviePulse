@@ -15,5 +15,11 @@ public class MovieEntityConfiguration : IEntityTypeConfiguration<Movie>
         builder.Property(m => m.ReleaseDate).IsRequired();
 
         builder.Property(m => m.DurationInMinutes).IsRequired();
+
+        builder.HasIndex(m => m.Title);
+
+        builder.HasIndex(m => m.Description);
+
+        builder.HasIndex(m => m.CreatedAt);
     }
 }

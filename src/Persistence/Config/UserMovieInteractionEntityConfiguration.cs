@@ -10,6 +10,12 @@ public class UserMovieInteractionEntityConfiguration : IEntityTypeConfiguration<
     {
         builder.HasKey(um => new { um.UserId, um.MovieId });
 
+        builder.HasIndex(um => um.IsWatched);
+
+        builder.HasIndex(um => um.IsInWatchlist);
+
+        builder.HasIndex(um => um.Rating);
+
         builder.HasOne(um => um.User)
             .WithMany(u => u.UserMovieInteractions)
             .HasForeignKey(um => um.UserId)
