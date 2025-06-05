@@ -27,7 +27,7 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
 
         if (cursor.HasValue)
         {
-            query = query.Where(m => m.CreatedAt > cursor);
+            query = query.Where(m => m.CreatedAt >= cursor);
         }
 
         var movies = await query.Take(pageSize + 1).ToListAsync();
@@ -36,9 +36,9 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
 
         if (movies.Count > pageSize)
         {
-            nextCursor = movies.Last().CreatedAt;
+            nextCursor = movies[pageSize].CreatedAt;
 
-            movies.RemoveAt(movies.Count - 1);
+            movies.RemoveAt(pageSize);
         }
 
         return (movies, nextCursor);

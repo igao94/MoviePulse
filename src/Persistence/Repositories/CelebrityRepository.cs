@@ -35,27 +35,36 @@ public class CelebrityRepository(AppDbContext context) : ICelebrityRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Celebrity>> GetAllCelebritiesAsync(string? search, string? sort)
+    public async Task<(IEnumerable<Celebrity>, DateTime?)> GetAllCelebritiesAsync(string? search,
+        int pageSize,
+        DateTime? cursor)
     {
-        var query = context.Celebrities
-            .OrderBy(c => c.CreatedAt)
-            .AsQueryable();
+        var query = context.Celebrities.AsQueryable();
 
         if (!string.IsNullOrEmpty(search))
         {
             query = query.Where(c => c.FirstName.Contains(search) || c.LastName.Contains(search));
         }
 
-        query = sort switch
-        {
-            "nameAsc" => query.OrderBy(c => c.FirstName),
-            "nameDesc" => query.OrderByDescending(c => c.LastName),
-            "dateOfBirthAsc" => query.OrderBy(c => c.DateOfBirth),
-            "dateOfBirthDesc" => query.OrderByDescending(c => c.DateOfBirth),
-            _ => query
-        };
+        query = query.OrderBy(c => c.CreatedAt);
 
-        return await query.ToListAsync();
+        if (cursor.HasValue)
+        {
+            query = query.Where(c => c.CreatedAt >= cursor);
+        }
+
+        DateTime? nextCursor = null!;
+
+        var celebrities = await query.Take(pageSize + 1).ToListAsync();
+
+        if (celebrities.Count > pageSize)
+        {
+            nextCursor = celebrities[pageSize].CreatedAt;
+
+            celebrities.RemoveAt(pageSize);
+        }
+
+        return (celebrities, nextCursor);
     }
 
     public void RemoveCelebrity(Celebrity celebrity) => context.Celebrities.Remove(celebrity);

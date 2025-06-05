@@ -5,7 +5,7 @@ using MediatR;
 namespace Application.Celebrities.Queries.GetAllCelebrities;
 
 public class GetAllCelebritiesQuery(CelebritySpecParams celebritySpecParams)
-    : IRequest<Result<IEnumerable<CelebrityDto>>>
+    : IRequest<Result<PagedList<CelebrityDto, DateTime?>>>
 {
     public CelebritySpecParams CelebritySpecParams { get; set; } = celebritySpecParams;
 }

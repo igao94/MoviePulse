@@ -7,14 +7,20 @@ using MediatR;
 namespace Application.Celebrities.Queries.GetAllCelebrities;
 
 public class GetAllCelebritiesHandler(IUnitOfWork unitOfWork,
-    IMapper mapper) : IRequestHandler<GetAllCelebritiesQuery, Result<IEnumerable<CelebrityDto>>>
+    IMapper mapper) : IRequestHandler<GetAllCelebritiesQuery, Result<PagedList<CelebrityDto, DateTime?>>>
 {
-    public async Task<Result<IEnumerable<CelebrityDto>>> Handle(GetAllCelebritiesQuery request,
+    public async Task<Result<PagedList<CelebrityDto, DateTime?>>> Handle(GetAllCelebritiesQuery request,
         CancellationToken cancellationToken)
     {
-        var celebrities = await unitOfWork.CelebrityRepository
-            .GetAllCelebritiesAsync(request.CelebritySpecParams.Search, request.CelebritySpecParams.Sort);
+        var (celebrities, nextCursor) = await unitOfWork.CelebrityRepository
+            .GetAllCelebritiesAsync(request.CelebritySpecParams.Search,
+                request.CelebritySpecParams.PageSize,
+                request.CelebritySpecParams.Cursor);
 
-        return Result<IEnumerable<CelebrityDto>>.Success(mapper.Map<IEnumerable<CelebrityDto>>(celebrities));
+        return Result<PagedList<CelebrityDto, DateTime?>>.Success(new PagedList<CelebrityDto, DateTime?>
+        {
+            Items = mapper.Map<IEnumerable<CelebrityDto>>(celebrities),
+            NextCursor = nextCursor
+        });
     }
 }

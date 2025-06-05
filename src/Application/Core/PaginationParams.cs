@@ -2,9 +2,9 @@
 
 public class PaginationParams<TCursor>
 {
-    private const int MaxPageSize = 5;
+    private const int MaxPageSize = 10;
 
-    private int _pageSize = 3;
+    private int _pageSize = 5;
 
     public int PageSize
     {

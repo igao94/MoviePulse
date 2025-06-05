@@ -6,6 +6,7 @@ using Application.Celebrities.Commands.UpdateCelebrity;
 using Application.Celebrities.DTOs;
 using Application.Celebrities.Queries.GetAllCelebrities;
 using Application.Celebrities.Queries.GetCelebrityById;
+using Application.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Constants;
@@ -15,7 +16,7 @@ namespace API.Controllers;
 public class CelebritiesController : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CelebrityDto>>> GetAllCelebrities(
+    public async Task<ActionResult<PagedList<CelebrityDto, DateTime?>>> GetAllCelebrities(
         [FromQuery] CelebritySpecParams celebritySpecParams)
     {
         return HandleResult(await Mediator.Send(new GetAllCelebritiesQuery(celebritySpecParams)));

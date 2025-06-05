@@ -1,6 +1,8 @@
-﻿namespace Application.Celebrities;
+﻿using Application.Core;
 
-public class CelebritySpecParams
+namespace Application.Celebrities;
+
+public class CelebritySpecParams : PaginationParams<DateTime?>
 {
     private string? _search;
 
@@ -10,6 +12,4 @@ public class CelebritySpecParams
 
         set => _search = value?.ToLower();
     }
-
-    public string? Sort { get; set; }
 }
