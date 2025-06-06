@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Infrastructure.Security;
 using Infrastructure.Services;
+using Infrastructure.Services.Photos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,10 @@ public static class DependencyInjection
         services.AddHttpContextAccessor();
 
         services.AddHostedService<MovieRatingUpdateService>();
+
+        services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+
+        services.AddScoped<IPhotoService, PhotoService>();
 
         return services;
     }
