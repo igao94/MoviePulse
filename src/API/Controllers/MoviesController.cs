@@ -1,6 +1,7 @@
 ﻿using Application.Core;
 using Application.Movies;
 using Application.Movies.Commands.AddGenreToMovie;
+using Application.Movies.Commands.AddMoviePoster;
 using Application.Movies.Commands.CreateMovie;
 using Application.Movies.Commands.DeleteMovie;
 using Application.Movies.Commands.UpdateMovie;
@@ -58,5 +59,12 @@ public class MoviesController : BaseApiController
     public async Task<ActionResult> AddGenreToMovie(AddGenreToMovieDto addGenreToMovieDto)
     {
         return HandleResult(await Mediator.Send(new AddGenreToMovieCommand(addGenreToMovieDto)));
+    }
+
+    [Authorize(Policy = PolicyTypes.RequireAdminRole)]
+    [HttpPost("add-movie-poster")]
+    public async Task<ActionResult> AddMoviePoster(AddMoviePosterCommand command)
+    {
+        return HandleResult(await Mediator.Send(command));
     }
 }
