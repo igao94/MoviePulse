@@ -35,7 +35,7 @@ public class AddPhotoHandler(IUnitOfWork unitOfWork,
             : Result<Unit>.Failure("Failed to upload photo.", 400);
     }
 
-    private void AddPhoto(User user, PhotoUploadResult uploadResult)
+    private static void AddPhoto(User user, PhotoUploadResult uploadResult)
     {
         var photo = new UserPhoto
         {
@@ -44,7 +44,7 @@ public class AddPhotoHandler(IUnitOfWork unitOfWork,
             Url = uploadResult.Url
         };
 
-        unitOfWork.UserRepository.AddPhoto(photo);
+        user.Photos.Add(photo);
 
         user.PictureUrl ??= photo.Url;
     }

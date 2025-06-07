@@ -28,5 +28,10 @@ public class UserRepository(AppDbContext context) : IUserRepository
 
     public void RemoveUser(User user) => context.Users.Remove(user);
 
-    public void AddPhoto(UserPhoto userPhoto) => context.UserPhotos.Add(userPhoto);
+    public async Task<User?> GetUserWithPhotosAsync(string id)
+    {
+        return await context.Users
+            .Include(u => u.Photos)
+            .FirstOrDefaultAsync(u => u.Id == id);
+    }
 }

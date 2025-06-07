@@ -1,4 +1,5 @@
 ﻿using Application.Users.Command.AddPhoto;
+using Application.Users.Command.DeletePhoto;
 using Application.Users.Command.DeleteUser;
 using Application.Users.Command.UpdateUser;
 using Application.Users.DTOs;
@@ -31,5 +32,11 @@ public class UsersController : BaseApiController
     public async Task<ActionResult> AddPhoto([FromForm] AddPhotoCommand command)
     {
         return HandleResult(await Mediator.Send(command));
+    }
+
+    [HttpDelete("delete-photo/{photoId}")]
+    public async Task<ActionResult> DeletePhoto(string photoId)
+    {
+        return HandleResult(await Mediator.Send(new DeletePhotoCommand(photoId)));
     }
 }
