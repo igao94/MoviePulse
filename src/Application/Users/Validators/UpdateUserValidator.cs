@@ -1,4 +1,4 @@
-﻿using Application.Users.Command.UpdateUser;
+﻿using Application.Users.Commands.UpdateUser;
 using FluentValidation;
 
 namespace Application.Users.Validators;

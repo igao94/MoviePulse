@@ -4,7 +4,7 @@ using AutoMapper;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Users.Command.UpdateUser;
+namespace Application.Users.Commands.UpdateUser;
 
 public class UpdateUserHandler(IUnitOfWork unitOfWork,
     IUserContext userContext,

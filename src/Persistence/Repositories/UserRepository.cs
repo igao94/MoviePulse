@@ -34,4 +34,11 @@ public class UserRepository(AppDbContext context) : IUserRepository
             .Include(u => u.Photos)
             .FirstOrDefaultAsync(u => u.Id == id);
     }
+
+    public async Task<IEnumerable<UserPhoto>> GetUserPhotosAsync(string id)
+    {
+        return await context.UserPhotos
+            .Where(u => u.UserId == id)
+            .ToListAsync();
+    }
 }

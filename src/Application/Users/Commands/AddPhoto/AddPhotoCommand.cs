@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace Application.Users.Command.AddPhoto;
+namespace Application.Users.Commands.AddPhoto;
 
 public class AddPhotoCommand : IRequest<Result<Unit>>
 {

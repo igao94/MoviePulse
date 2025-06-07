@@ -1,9 +1,10 @@
-﻿using Application.Users.Command.AddPhoto;
-using Application.Users.Command.DeletePhoto;
-using Application.Users.Command.DeleteUser;
-using Application.Users.Command.UpdateUser;
+﻿using Application.Users.Commands.AddPhoto;
+using Application.Users.Commands.DeletePhoto;
+using Application.Users.Commands.DeleteUser;
+using Application.Users.Commands.UpdateUser;
 using Application.Users.DTOs;
 using Application.Users.Queries.GetUserById;
+using Application.Users.Queries.GetUserPhotos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -38,5 +39,11 @@ public class UsersController : BaseApiController
     public async Task<ActionResult> DeletePhoto(string photoId)
     {
         return HandleResult(await Mediator.Send(new DeletePhotoCommand(photoId)));
+    }
+
+    [HttpGet("get-user-photos")]
+    public async Task<ActionResult<IEnumerable<PhotoDto>>> GetUserPhotos()
+    {
+        return HandleResult(await Mediator.Send(new GetUserPhotosQuery()));
     }
 }

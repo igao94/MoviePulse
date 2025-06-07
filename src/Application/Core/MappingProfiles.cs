@@ -49,5 +49,7 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.Movie.ReleaseDate))
             .ForMember(dest => dest.Celebrities, opt =>
                 opt.MapFrom(src => src.Movie.Celebrities.Select(c => c.Celebrity.GetFullName()).Distinct()));
+
+        CreateMap<UserPhoto, PhotoDto>();
     }
 }

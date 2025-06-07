@@ -1,7 +1,7 @@
 ﻿using Application.Core;
 using MediatR;
 
-namespace Application.Users.Command.DeletePhoto;
+namespace Application.Users.Commands.DeletePhoto;
 
 public class DeletePhotoCommand(string photoId) : IRequest<Result<Unit>>
 {

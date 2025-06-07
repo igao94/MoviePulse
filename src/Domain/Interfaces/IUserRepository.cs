@@ -11,4 +11,5 @@ public interface IUserRepository
     Task<bool> IsUsernameTakenAsync(string username);
     Task<bool> IsEmailTakenAsync(string email);
     Task<User?> GetUserWithPhotosAsync(string id);
+    Task<IEnumerable<UserPhoto>> GetUserPhotosAsync(string id);
 }

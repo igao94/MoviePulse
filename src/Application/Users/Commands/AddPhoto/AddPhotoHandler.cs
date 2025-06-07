@@ -4,7 +4,7 @@ using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Users.Command.AddPhoto;
+namespace Application.Users.Commands.AddPhoto;
 
 public class AddPhotoHandler(IUnitOfWork unitOfWork,
     IPhotoService photoService,

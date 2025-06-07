@@ -3,7 +3,7 @@ using Application.Interfaces;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Users.Command.DeletePhoto;
+namespace Application.Users.Commands.DeletePhoto;
 
 public class DeletePhotoHandler(IUnitOfWork unitOfWork,
     IUserContext userContext,
