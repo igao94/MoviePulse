@@ -13,4 +13,5 @@ public class Movie
     public ICollection<MovieRole> Celebrities { get; set; } = [];
     public ICollection<UserMovieInteraction> UserMovieInteractions { get; set; } = [];
     public ICollection<MovieGenre> Genres { get; set; } = [];
+    public ICollection<MoviePoster> Posters { get; set; } = [];
 }
