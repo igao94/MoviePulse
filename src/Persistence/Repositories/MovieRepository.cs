@@ -73,4 +73,11 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
 
         context.MovieRoles.RemoveRange(movieRoles);
     }
+
+    public async Task<Movie?> GetMovieWithPostersAsync(string id)
+    {
+        return await context.Movies
+            .Include(m => m.Posters)
+            .FirstOrDefaultAsync(m => m.Id == id);
+    }
 }
