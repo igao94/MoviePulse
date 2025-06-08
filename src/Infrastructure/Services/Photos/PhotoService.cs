@@ -32,6 +32,16 @@ public class PhotoService : IPhotoService
         return result.Result;
     }
 
+    public async Task DeletePhotosAsync(IEnumerable<string> publicIds)
+    {
+        var result = await _cloudinary.DeleteResourcesAsync(publicIds.ToArray());
+
+        if (result.Error is not null)
+        {
+            throw new Exception(result.Error.Message);
+        }
+    }
+
     public async Task<PhotoUploadResult?> UploadPhotoAsync(IFormFile file)
     {
         if (file.Length <= 0)
