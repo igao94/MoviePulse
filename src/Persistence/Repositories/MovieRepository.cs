@@ -80,4 +80,11 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
             .Include(m => m.Posters)
             .FirstOrDefaultAsync(m => m.Id == id);
     }
+
+    public async Task<IEnumerable<MoviePoster>> GetMoviePostersAsync(string id)
+    {
+        return await context.MoviePosters
+            .Where(mp => mp.MovieId == id)
+            .ToListAsync();
+    }
 }

@@ -9,6 +9,7 @@ using Application.Movies.Commands.UpdateMovie;
 using Application.Movies.DTOs;
 using Application.Movies.Queries.GetAllMovies;
 using Application.Movies.Queries.GetMovieById;
+using Application.Movies.Queries.GetMoviePosters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Constants;
@@ -74,5 +75,11 @@ public class MoviesController : BaseApiController
     public async Task<ActionResult> DeleteMoviePoster(DeleteMoviePosterCommand command)
     {
         return HandleResult(await Mediator.Send(command));
+    }
+
+    [HttpGet("get-movie-posters/{id}")]
+    public async Task<ActionResult<IEnumerable<PosterDto>>> GetMoviePosters(string id)
+    {
+        return HandleResult(await Mediator.Send(new GetMoviePostersQuery(id)));
     }
 }

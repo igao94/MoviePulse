@@ -51,5 +51,7 @@ public class MappingProfiles : Profile
                 opt.MapFrom(src => src.Movie.Celebrities.Select(c => c.Celebrity.GetFullName()).Distinct()));
 
         CreateMap<UserPhoto, PhotoDto>();
+
+        CreateMap<MoviePoster, PosterDto>();
     }
 }

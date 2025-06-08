@@ -12,4 +12,5 @@ public interface IMovieRepository
     Task<bool> MovieExistAsync(string title);
     Task RemoveMovieRolesFromMovieAsync(string id);
     Task<Movie?> GetMovieWithPostersAsync(string id);
+    Task<IEnumerable<MoviePoster>> GetMoviePostersAsync(string id);
 }
