@@ -18,9 +18,9 @@ public class MovieRepository(AppDbContext context) : IMovieRepository
         if (!string.IsNullOrEmpty(search))
         {
             query = query.Where(m =>
-                m.Title.Contains(search) ||
-                m.Description.Contains(search) ||
-                m.Genres.Any(g => g.Genre.Name.Contains(search)));
+                m.Title.ToLower().Contains(search) ||
+                m.Description.ToLower().Contains(search) ||
+                m.Genres.Any(g => g.Genre.Name.ToLower().Contains(search)));
         }
 
         query = query.OrderBy(m => m.CreatedAt);

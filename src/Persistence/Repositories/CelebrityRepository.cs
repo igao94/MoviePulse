@@ -43,7 +43,8 @@ public class CelebrityRepository(AppDbContext context) : ICelebrityRepository
 
         if (!string.IsNullOrEmpty(search))
         {
-            query = query.Where(c => c.FirstName.Contains(search) || c.LastName.Contains(search));
+            query = query
+                .Where(c => c.FirstName.ToLower().Contains(search) || c.LastName.ToLower().Contains(search));
         }
 
         query = query.OrderBy(c => c.CreatedAt);
