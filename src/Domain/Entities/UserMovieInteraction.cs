@@ -8,6 +8,7 @@ public class UserMovieInteraction
     public Movie Movie { get; set; } = null!;
     public int? Rating { get; set; }
     public DateTime? RatedAt { get; set; }
+    public bool IsOnceRated { get; set; }
     public bool IsWatched { get; set; }
     public bool IsInWatchlist { get; set; }
     public DateTime? AddedToWatchlistAt { get; set; }
