@@ -56,7 +56,7 @@ public class UserMovieInteractionRepository(AppDbContext context) : IUserMovieIn
     public async Task<IEnumerable<(string MovieId, double? AverageRating)>> CalculateAverageMovieRatingAsync()
     {
         var list = await context.UserMovieInteractions
-            .Where(um => um.Rating.HasValue)
+            .Where(um => um.IsOnceRated)
             .GroupBy(um => um.MovieId)
             .Select(g => new
             {

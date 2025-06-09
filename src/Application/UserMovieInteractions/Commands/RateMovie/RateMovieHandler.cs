@@ -46,6 +46,7 @@ public class RateMovieHandler(IUnitOfWork unitOfWork,
                 UserId = userId,
                 MovieId = movieId,
                 Rating = rating,
+                IsOnceRated = true,
                 IsWatched = true,
                 RatedAt = DateTime.UtcNow
             };
