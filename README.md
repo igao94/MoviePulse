@@ -8,13 +8,11 @@ It's built with Clean Architecture principles, providing a robust and scalable s
 
 ✅ **Authentication and Authorization**
 
-Users must register and log in using ***JWT bearer tokens*** to access the application.
-User roles are manually defined:
-
+- Users must register and log in using ***JWT bearer tokens*** to access the application.
+- Password ***hashing*** and ***salting*** are handled manually.
+### User roles are manually defined:
 - **Member:** Has limited application functionalities.
 - **Admin:** Possesses elevated privileges and more functions.
-
-***JWT bearer tokens*** are used to securely authorize access to protected API endpoints.
 
 ## 🍿 Movie Management
 
