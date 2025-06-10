@@ -1,0 +1,1164 @@
+{
+	"info": {
+		"_postman_id": "29a067d2-94ce-49e0-a8fb-4d07be09037d",
+		"name": "MoviePulse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31602318"
+	},
+	"item": [
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"igor\",\r\n    \"email\": \"igor@test.com\",\r\n    \"firstName\": \"Igor\",\r\n    \"lastName\" : \"Milosavljevic\",\r\n    \"password\": \"Pa$$w0rd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/accounts/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in and save token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let user;\r",
+									"\r",
+									"try {\r",
+									"    user = pm.response.json();\r",
+									"\r",
+									"    pm.test(\"Has properties\", function () {\r",
+									"        pm.expect(user).to.have.property('email');\r",
+									"        pm.expect(user).to.have.property('token');\r",
+									"    });\r",
+									"\r",
+									"    if (user.token) {\r",
+									"        pm.collectionVariables.set('token', user.token);\r",
+									"    }\r",
+									"} catch (e) {\r",
+									"    console.warn(\"Response is not valid JSON. Skipping token set.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jane@test.com\",\r\n    \"password\": \"Pa$$w0rd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/accounts/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in as admin and save token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let user;\r",
+									"\r",
+									"try {\r",
+									"    user = pm.response.json();\r",
+									"\r",
+									"    pm.test(\"Has properties\", function () {\r",
+									"        pm.expect(user).to.have.property('email');\r",
+									"        pm.expect(user).to.have.property('token');\r",
+									"    });\r",
+									"\r",
+									"    if (user.token) {\r",
+									"        pm.collectionVariables.set('token', user.token);\r",
+									"    }\r",
+									"} catch (e) {\r",
+									"    console.warn(\"Response is not valid JSON. Skipping token set.\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@test.com\",\r\n    \"password\": \"Pa$$w0rd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/accounts/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current user info",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/accounts/get-current-user-info",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"get-current-user-info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get user by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/users/jane-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"jane-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Janee\",\r\n    \"lastName\" : \"Smithh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add photo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "File",
+									"type": "file",
+									"src": "/D:/Projekti/Resursi/ProfilePicture.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/users/add-photo",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"add-photo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete photo",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/users/delete-photo/a34f5f22-9b31-4339-b12d-f5377e9da671",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"delete-photo",
+								"a34f5f22-9b31-4339-b12d-f5377e9da671"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user photos",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/users/get-user-photos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"get-user-photos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Get all movies",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/movies?search=avatar&cursor=2025-06-05T09:38:36.3329858",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "avatar"
+								},
+								{
+									"key": "cursor",
+									"value": "2025-06-05T09:38:36.3329858"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get movie by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/movies/avatar-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"avatar-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create movie",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Avatar: The Way of Water\",\r\n    \"description\": \"Jake Sully lives with his newfound family formed on the planet of Pandora. When a familiar threat returns to finish what was previously started, Jake must work with Neytiri and the army of the Na'vi to protect their home.\",\r\n    \"releaseDate\": \"2022-12-16\",\r\n    \"durationInMinutes\": 192\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/movies",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update movie",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Title\": \"Avatar updated\",\r\n    \"Description\": \"A paraplegic Marine dispatched to the moon Pandora becomes torn between following his orders and protecting the world he feels is his home. updated\",\r\n    \"ReleaseDate\": \"2009-12-17\",\r\n    \"DurationInMinutes\": 162\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/movies/avatar-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"avatar-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete movie",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/movies/avatar-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"avatar-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add genre to movie",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieId\" : \"avatar-id\",\r\n    \"genreId\": \"sciFi-id\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/movies/add-genre-to-movie",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"add-genre-to-movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add movie poster",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Id",
+									"value": "avatar-id",
+									"type": "text"
+								},
+								{
+									"key": "File",
+									"type": "file",
+									"src": "/D:/Projekti/Resursi/ProfilePicture.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/movies/add-movie-poster",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"add-movie-poster"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete movie poster",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieId\": \"avatar-id\",\r\n    \"posterId\": \"4d81eb04-0cfc-4a4e-8518-ec721fff0beb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/movies/delete-movie-poster",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"delete-movie-poster"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get movie posters",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/movies/get-movie-posters/avatar-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"get-movie-posters",
+								"avatar-id"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Celebrities",
+			"item": [
+				{
+					"name": "Get all celebrities",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/celebrities?search=robert&cursor=2025-06-05T09:38:36.3717191",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"celebrities"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "robert"
+								},
+								{
+									"key": "cursor",
+									"value": "2025-06-05T09:38:36.3717191"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get celebrity by id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/celebrities/cameron-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"celebrities",
+								"cameron-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create celebrity",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Sam\",\r\n    \"lastName\": \"Worthington\",\r\n    \"bio\": \"Sam Worthington is an Australian actor best known for his lead role in 'Avatar.' He trained at the National Institute of Dramatic Art and has appeared in films like 'Terminator Salvation' and 'Clash of the Titans.'\",\r\n    \"dateOfBirth\": \"1976-08-02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/celebrities",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"celebrities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update celebrity",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Christian Updated\",\r\n    \"lastName\": \"Bale Updated\",\r\n    \"bio\": \"Christian Bale is a British actor known for his role as Batman in The Dark Knight trilogy. He is praised for his intense method acting. Updated\",\r\n    \"dateOfBirth\": \"1974-01-30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/celebrities/bale-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"celebrities",
+								"bale-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add celebrity to movie",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieId\": \"avatar-id\",\r\n    \"celebrityId\": \"cameron-id\",\r\n    \"characterName\": \"\",\r\n    \"roleTypeIds\": [\"writer-id\", \"director-id\", \"producer-id\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/celebrities/add-celebrity-to-movie",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"celebrities",
+								"add-celebrity-to-movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete celebrity",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/celebrities/cameron-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"celebrities",
+								"cameron-id"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserMovieInteractions",
+			"item": [
+				{
+					"name": "Toggle movie in watchlist",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/usermovieinteractions/toggle-movie-in-watchlist/avatar-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usermovieinteractions",
+								"toggle-movie-in-watchlist",
+								"avatar-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get watchlist",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/usermovieinteractions/get-watchlist?sort=durationDesc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usermovieinteractions",
+								"get-watchlist"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "durationDesc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rate a movie",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieId\": \"avatar-id\",\r\n    \"rating\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/usermovieinteractions/rate-movie",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usermovieinteractions",
+								"rate-movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove rating",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/usermovieinteractions/remove-rating/avatar-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usermovieinteractions",
+								"remove-rating",
+								"avatar-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user ratings",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/usermovieinteractions/get-user-ratings?sort=ratingAsc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usermovieinteractions",
+								"get-user-ratings"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "ratingAsc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle is movie watched",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/usermovieinteractions/mark-movie-as-watched/avatar-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usermovieinteractions",
+								"mark-movie-as-watched",
+								"avatar-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get watched movies",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/usermovieinteractions/get-watched-movies",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"usermovieinteractions",
+								"get-watched-movies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://localhost:5001",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
