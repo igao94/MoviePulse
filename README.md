@@ -44,6 +44,10 @@ User roles are manually defined:
 - The app uses an ***In-Memory database*** by default for quick setup and testing.
 - To use ***SQL Server***, set ***UseInMemoryDatabase*** to false in ***appsettings.Development.json*** for testing with a persistent database.
 
+## 🧑‍💻 Admin Credentials
+- Email: admin@test.com
+- Password: Pa$$w0rd
+
 ## 🚀 Technologies Used
 - ASP.NET Core Web API
 - Entity Framework Core
