@@ -42,6 +42,9 @@ It's built with Clean Architecture principles, providing a robust and scalable s
 - The app uses an ***In-Memory database*** by default for quick setup and testing.
 - To use ***SQL Server***, set ***UseInMemoryDatabase*** to false in ***appsettings.Development.json*** for testing with a persistent database.
 
+## 🧪 Postman Collection
+- Postman collection is available with all API endpoints for easy testing.
+
 ## 🧑‍💻 Admin Credentials
 - Email: admin@test.com
 - Password: Pa$$w0rd
