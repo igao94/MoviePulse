@@ -59,7 +59,7 @@ public class ToggleMovieInWatchlistHandler(IUnitOfWork unitOfWork,
         {
             watchlist.IsInWatchlist = false;
 
-            watchlist.AddedToWatchlistAt = watchlist.IsInWatchlist ? DateTime.UtcNow : null;
+            watchlist.AddedToWatchlistAt = null;
         }
         else
         {
