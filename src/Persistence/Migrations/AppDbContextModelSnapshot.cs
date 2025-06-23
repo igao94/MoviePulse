@@ -56,7 +56,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("LastName");
 
-                    b.ToTable("Celebrities");
+                    b.ToTable("Celebrities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.CelebrityRoleType", b =>
@@ -73,7 +73,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CelebrityRoleTypes");
+                    b.ToTable("CelebrityRoleTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Genre", b =>
@@ -92,7 +92,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("Name");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Movie", b =>
@@ -131,7 +131,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("Title");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.MovieGenre", b =>
@@ -149,7 +149,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("MovieGenres");
+                    b.ToTable("MovieGenres", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.MoviePoster", b =>
@@ -176,7 +176,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MoviePosters");
+                    b.ToTable("MoviePosters", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.MovieRole", b =>
@@ -202,7 +202,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RoleTypeId");
 
-                    b.ToTable("MovieRoles");
+                    b.ToTable("MovieRoles", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Role", b =>
@@ -223,7 +223,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -269,7 +269,7 @@ namespace Persistence.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserMovieInteraction", b =>
@@ -308,7 +308,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("Rating");
 
-                    b.ToTable("UserMovieInteractions");
+                    b.ToTable("UserMovieInteractions", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserPhoto", b =>
@@ -335,7 +335,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserPhotos");
+                    b.ToTable("UserPhotos", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserRole", b =>
@@ -353,7 +353,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.MovieGenre", b =>

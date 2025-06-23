@@ -19,9 +19,5 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.FirstName).IsRequired();
 
         builder.Property(u => u.LastName).IsRequired();
-
-        builder.Property(u => u.PasswordHash).IsRequired();
-
-        builder.Property(u => u.PasswordHash).IsRequired();
     }
 }
